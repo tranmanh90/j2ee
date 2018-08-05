@@ -104,7 +104,7 @@
 
 				<Context docBase="Servlet001_HelloWorld" path="/Servlet001_HelloWorld" reloadable="true" source="org.eclipse.jst.jee.server:Servlet001_HelloWorld"/>
 				<Context docBase="Servlet002_InitParam" path="/Servlet002_InitParam" reloadable="true" source="org.eclipse.jst.jee.server:Servlet002_InitParam"/>
-			<Context docBase="Servlet003_Annotation" path="/Servlet003_Annotation" reloadable="true" source="org.eclipse.jst.jee.server:Servlet003_Annotation"/><Context docBase="Servlet004_UrlPattern" path="/Servlet004_UrlPattern" reloadable="true" source="org.eclipse.jst.jee.server:Servlet004_UrlPattern"/><Context docBase="Servlet005_GetInfor" path="/Servlet005_GetInfor" reloadable="true" source="org.eclipse.jst.jee.server:Servlet005_GetInfor"/></Host>
+			<Context docBase="Servlet003_Annotation" path="/Servlet003_Annotation" reloadable="true" source="org.eclipse.jst.jee.server:Servlet003_Annotation"/><Context docBase="Servlet004_UrlPattern" path="/Servlet004_UrlPattern" reloadable="true" source="org.eclipse.jst.jee.server:Servlet004_UrlPattern"/><Context docBase="Servlet005_GetInfor" path="/Servlet005_GetInfor" reloadable="true" source="org.eclipse.jst.jee.server:Servlet005_GetInfor"/><Context docBase="Servlet006_Forward" path="/Servlet006_Forward" reloadable="true" source="org.eclipse.jst.jee.server:Servlet006_Forward"/></Host>
 		</Engine>
 	</Service>
 </Server>
