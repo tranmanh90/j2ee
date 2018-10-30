@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Spring007SpringBootApacheTilesJspApplication {
+public class SpringBootApacheTilesJspApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Spring007SpringBootApacheTilesJspApplication.class, args);
+		SpringApplication.run(SpringBootApacheTilesJspApplication.class, args);
 	}
 }
