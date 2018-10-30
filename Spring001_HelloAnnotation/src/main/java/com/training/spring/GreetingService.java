@@ -1,0 +1,18 @@
+package com.training.spring;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class GreetingService {
+	@Autowired
+	private Language language;
+
+	public GreetingService() {
+
+	}
+
+	public void sayGreeting() {
+		System.out.println("Greeting: " + language.getGreeting());
+	}
+}
