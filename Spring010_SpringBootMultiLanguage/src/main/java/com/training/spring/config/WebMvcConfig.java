@@ -7,17 +7,22 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+	// To solver URL like:
+	// /SomeContextPath/en/login2
+	// /SomeContextPath/vi/login2
+	// /SomeContextPath/fr/login2
 	@Bean(name = "localeResolver")
 	public LocaleResolver getLocaleResolver() {
-		CookieLocaleResolver resolver = new CookieLocaleResolver();
-		resolver.setCookieDomain("myAppLocaleCookie");
-		// 60 minutes
-		resolver.setCookieMaxAge(60 * 60);
+//		CookieLocaleResolver resolver = new CookieLocaleResolver();
+//		resolver.setCookieDomain("myAppLocaleCookie");
+//		// 60 minutes
+//		resolver.setCookieMaxAge(60 * 60);
+		LocaleResolver resolver = new UrlLocaleResolver();
 		return resolver;
 	}
 
@@ -35,10 +40,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
-		WebMvcConfigurer.super.addInterceptors(registry);
-		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("lang");
-		registry.addInterceptor(localeChangeInterceptor).addPathPatterns("/*");
+//		WebMvcConfigurer.super.addInterceptors(registry);
+//		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+//		localeChangeInterceptor.setParamName("lang");
+//		registry.addInterceptor(localeChangeInterceptor).addPathPatterns("/*");
+		UrlLocaleInterceptor localeInterceptor = new UrlLocaleInterceptor();
+		registry.addInterceptor(localeInterceptor).addPathPatterns("/en/*", "/fr/*", "/vi/*");
 	}
 
 }
