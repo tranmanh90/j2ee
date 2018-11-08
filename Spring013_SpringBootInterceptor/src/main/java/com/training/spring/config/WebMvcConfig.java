@@ -1,5 +1,6 @@
 package com.training.spring.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -7,6 +8,8 @@ import com.training.spring.interceptor.AdminInterceptor;
 import com.training.spring.interceptor.LogInterceptor;
 import com.training.spring.interceptor.OldLoginInterceptor;
 
+@SuppressWarnings("deprecation")
+@Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -20,8 +23,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 		// Interceptor này áp dụng cho các URL có dạng /admin/*
 		// Loại đi trường hợp /admin/oldLogin
-		registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/*")
-				.excludePathPatterns("/admin/oldLogin");
+		registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/*").excludePathPatterns("/admin/oldLogin");
 	}
 
 }
