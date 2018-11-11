@@ -25,32 +25,32 @@ public class DataSource2Config {
 	private Environment env;
 
 	@Bean
-	public DataSource ds1DataSource() {
+	public DataSource ds2DataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name.1"));
-		dataSource.setUrl(env.getProperty("spring.datasource.url.1"));
-		dataSource.setUsername(env.getProperty("spring.datasource.username.1"));
-		dataSource.setPassword(env.getProperty("spring.datasource.password.1"));
+		dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name.2"));
+		dataSource.setUrl(env.getProperty("spring.datasource.url.2"));
+		dataSource.setUsername(env.getProperty("spring.datasource.username.2"));
+		dataSource.setPassword(env.getProperty("spring.datasource.password.2"));
 
 		return dataSource;
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean ds1EntityManager() {
+	public LocalContainerEntityManagerFactoryBean ds2EntityManager() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(ds1DataSource());
+		em.setDataSource(ds2DataSource());
 
 		// Scan Entities in Package
-		em.setPackagesToScan(new String[] { Constants.PACKAGE_ENTITIES_1 });
-		em.setPersistenceUnitName(Constants.JPA_UNIT_NAME_1);
+		em.setPackagesToScan(new String[] { Constants.PACKAGE_ENTITIES_2 });
+		em.setPersistenceUnitName(Constants.JPA_UNIT_NAME_2);
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
 		HashMap<String, Object> properties = new HashMap<>();
 
 		// JPA & Hibernate
-		properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect.1"));
-		properties.put("hibernate.show-sql", env.getProperty("spring.jpa.show-sql.1"));
+		properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect.2"));
+		properties.put("hibernate.show-sql", env.getProperty("spring.jpa.show-sql.2"));
 
 		em.setJpaPropertyMap(properties);
 		em.afterPropertiesSet();
@@ -60,7 +60,7 @@ public class DataSource2Config {
 	@Bean
 	public PlatformTransactionManager ds1TransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(ds1EntityManager().getObject());
+		transactionManager.setEntityManagerFactory(ds2EntityManager().getObject());
 		return transactionManager;
 	}
 }
