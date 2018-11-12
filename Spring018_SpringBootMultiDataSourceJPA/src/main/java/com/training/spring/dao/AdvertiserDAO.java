@@ -14,18 +14,19 @@ import com.training.spring.entity2.Advertiser;
 
 @Repository
 public class AdvertiserDAO {
+
 	@Autowired
 	@PersistenceContext(unitName = Constants.JPA_UNIT_NAME_2)
-	private EntityManager env;
+	private EntityManager entityManager;
 
-	@SuppressWarnings("unchecked")
 	public List<Advertiser> listAdvertisers() {
 		String sql = "Select e from " + Advertiser.class.getName() + " e ";
-		Query query = env.createQuery(sql, Advertiser.class);
+		Query query = entityManager.createQuery(sql, Advertiser.class);
 		return query.getResultList();
 	}
 
 	public Advertiser findById(Long id) {
-		return this.env.find(Advertiser.class, id);
+		return this.entityManager.find(Advertiser.class, id);
 	}
+
 }

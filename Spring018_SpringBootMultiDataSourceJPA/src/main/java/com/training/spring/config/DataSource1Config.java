@@ -19,13 +19,17 @@ import org.springframework.transaction.PlatformTransactionManager;
 import com.training.spring.constant.Constants;
 
 @Configuration
+//Load to Environment
+//(@see resources/datasource-cfg.properties).
 @PropertySources({ @PropertySource("classpath:datasources.properties") })
 public class DataSource1Config {
+
 	@Autowired
-	private Environment env;
+	private Environment env; // Contains Properties Load by @PropertySources
 
 	@Bean
-	public DataSource ds1DataSource() {
+	public DataSource ds1Datasource() {
+
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name.1"));
 		dataSource.setUrl(env.getProperty("spring.datasource.url.1"));
@@ -38,19 +42,26 @@ public class DataSource1Config {
 	@Bean
 	public LocalContainerEntityManagerFactoryBean ds1EntityManager() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(ds1DataSource());
+		em.setDataSource(ds1Datasource());
 
-		// Scan Entities in Package
+		// Scan Entities in Package:
 		em.setPackagesToScan(new String[] { Constants.PACKAGE_ENTITIES_1 });
-		em.setPersistenceUnitName(Constants.JPA_UNIT_NAME_1);
+		em.setPersistenceUnitName(Constants.JPA_UNIT_NAME_1); // Important !!
 
+		//
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+
 		em.setJpaVendorAdapter(vendorAdapter);
+
 		HashMap<String, Object> properties = new HashMap<>();
 
 		// JPA & Hibernate
 		properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect.1"));
 		properties.put("hibernate.show-sql", env.getProperty("spring.jpa.show-sql.1"));
+
+		// Solved Error: PostGres createClob() is not yet implemented.
+		// PostGres Only:
+		// properties.put("hibernate.temp.use_jdbc_metadata_defaults", false);
 
 		em.setJpaPropertyMap(properties);
 		em.afterPropertiesSet();
@@ -59,8 +70,10 @@ public class DataSource1Config {
 
 	@Bean
 	public PlatformTransactionManager ds1TransactionManager() {
+
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(ds1EntityManager().getObject());
 		return transactionManager;
 	}
+
 }

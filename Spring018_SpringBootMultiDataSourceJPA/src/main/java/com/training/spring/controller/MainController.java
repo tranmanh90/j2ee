@@ -15,6 +15,7 @@ import com.training.spring.entity2.Advertiser;
 
 @Controller
 public class MainController {
+
 	@Autowired
 	private PublisherDAO publisherDAO;
 
@@ -22,7 +23,8 @@ public class MainController {
 	private AdvertiserDAO advertiserDAO;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homepage(Model model) {
+	public String homePage(Model model) {
+
 		List<Advertiser> advertisers = advertiserDAO.listAdvertisers();
 		List<Publisher> publishers = publisherDAO.listPublishers();
 
