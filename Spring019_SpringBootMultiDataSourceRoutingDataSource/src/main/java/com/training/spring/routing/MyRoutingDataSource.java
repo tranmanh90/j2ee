@@ -17,7 +17,7 @@ public class MyRoutingDataSource extends AbstractRoutingDataSource {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		String keyDataSource = (String) request.getAttribute("keyDS");
-		if (keyDataSource.equals(null)) {
+		if (keyDataSource == null) {
 			keyDataSource = "PUBLISHER_DS";
 		}
 		return keyDataSource;
