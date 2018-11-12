@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.training.spring.constant.Constants;
-import com.training.spring.entity1.Publisher;
 import com.training.spring.entity2.Advertiser;
 
 @Repository
@@ -20,7 +19,7 @@ public class AdvertiserDAO {
 	private EntityManager env;
 
 	@SuppressWarnings("unchecked")
-	public List<Publisher> listPublishers() {
+	public List<Advertiser> listAdvertisers() {
 		String sql = "Select e from " + Advertiser.class.getName() + " e ";
 		Query query = env.createQuery(sql, Advertiser.class);
 		return query.getResultList();
