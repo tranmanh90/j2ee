@@ -8,14 +8,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "app_role", uniqueConstraints = { @UniqueConstraint(name = "APP_ROLE_UK", columnNames = "role_name") })
+@Table(name = "App_Role", //
+		uniqueConstraints = { //
+				@UniqueConstraint(name = "APP_ROLE_UK", columnNames = "Role_Name") })
 public class AppRole {
+
 	@Id
 	@GeneratedValue
-	@Column(name = "role_id", nullable = false)
+	@Column(name = "Role_Id", nullable = false)
 	private Long roleId;
 
-	@Column(name = "role_name", length = 30, nullable = false)
+	@Column(name = "Role_Name", length = 30, nullable = false)
 	private String roleName;
 
 	public Long getRoleId() {
@@ -32,17 +35,6 @@ public class AppRole {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("AppRole [roleId=");
-		builder.append(roleId);
-		builder.append(", roleName=");
-		builder.append(roleName);
-		builder.append("]");
-		return builder.toString();
 	}
 
 }
