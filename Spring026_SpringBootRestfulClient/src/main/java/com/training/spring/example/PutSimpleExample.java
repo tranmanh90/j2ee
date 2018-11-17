@@ -1,0 +1,40 @@
+package com.training.spring.example;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
+
+public class PutSimpleExample {
+
+	static final String URL_UPDATE_EMPLOYEE = "http://localhost:8080/employee/update";
+	static final String URL_EMPLOYEE_PREFIX = "http://localhost:8080/employee/";
+
+	public static void main(String[] args) {
+
+		String empNo = "E10";
+
+		Employee updateInfo = new Employee(empNo, "Tom+tep", "Cleck");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		// Dữ liệu đính kèm theo yêu cầu.
+		HttpEntity<Employee> requestBody = new HttpEntity<>(updateInfo, headers);
+
+		// Gửi yêu cầu với phương thức PUT.
+		restTemplate.put(URL_UPDATE_EMPLOYEE, requestBody, new Object[] {});
+
+		String resourceUrl = URL_EMPLOYEE_PREFIX + empNo;
+
+		Employee e = restTemplate.getForObject(resourceUrl, Employee.class);
+
+		if (e != null) {
+			System.out.println("(Client side) Employee after update: ");
+			System.out.println("Employee: " + e.getEmpNo() + " - " + e.getEmpName());
+		}
+	}
+
+}
