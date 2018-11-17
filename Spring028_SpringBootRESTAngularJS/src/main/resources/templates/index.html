@@ -13,10 +13,36 @@
 
 	<h3>CRUD: Spring Boot + Rest + AngularJS</h3>
 	<form data-ng-submit="submitEmployee()">
-		<table border="1">
-		
+		<table border="0">
+			<tr>
+				<td>Emp No</td>
+				<td><input type="text" data-ng-model="employeeForm.empNo" /></td>
+			</tr>
+			<tr>
+				<td>Emp Name</td>
+				<td><input type="text" data-ng-model="employeeForm.empName" /></td>
+			</tr>
+			<tr>
+				<td colspan="1"><input type="submit" value="Submit"
+					class="blue-button" /></td>
+			</tr>
 		</table>
 	</form>
-
+	<br />
+	<a class="create-button" data-ng-click="createEmployee()">Create Employee</a>
+	<table border="1">
+		<tr>
+			<th>Emp No</th>
+			<th>Emp No</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+		<tr data-ng-repeat="employee in employees">
+			<td>{{ employee.empNo }}</td>
+			<td>{{ employee.empName }}</td>
+			<td><a data-ng-click="editEmployee(employee)" class="edit-button">Edit</a></td>
+			<td><a data-ng-click="deleteEmployee(employee)" class="delete-button">Delete</a></td>
+		</tr>
+	</table>
 </body>
 </html>
