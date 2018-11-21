@@ -23,6 +23,10 @@
 				<td><input type="text" data-ng-model="employeeForm.empName" /></td>
 			</tr>
 			<tr>
+				<td>Emp Position</td>
+				<td><input type="text" data-ng-model="employeeForm.position" /></td>
+			</tr>
+			<tr>
 				<td colspan="1"><input type="submit" value="Submit"
 					class="blue-button" /></td>
 			</tr>
@@ -34,12 +38,14 @@
 		<tr>
 			<th>Emp No</th>
 			<th>Emp No</th>
+			<th>Emp Position</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
 		<tr data-ng-repeat="employee in employees">
 			<td>{{ employee.empNo }}</td>
 			<td>{{ employee.empName }}</td>
+			<td>{{ employee.position }}</td>
 			<td><a data-ng-click="editEmployee(employee)" class="edit-button">Edit</a></td>
 			<td><a data-ng-click="deleteEmployee(employee)" class="delete-button">Delete</a></td>
 		</tr>
