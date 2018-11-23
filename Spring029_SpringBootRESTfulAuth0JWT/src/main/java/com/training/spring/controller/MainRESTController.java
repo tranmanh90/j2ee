@@ -19,11 +19,11 @@ public class MainRESTController {
 	@Autowired
 	private EmployeeDAO employeeDAO;
 
-//	@RequestMapping("/")
-//	@ResponseBody
-//	public String welcome() {
-//		return "Welcome to RestTemplate Example.";
-//	}
+	@RequestMapping("/")
+	@ResponseBody
+	public String welcome() {
+		return "Welcome to RestTemplate Example.";
+	}
 
 	// URL:
 	// http://localhost:8080/SomeContextPath/employees
