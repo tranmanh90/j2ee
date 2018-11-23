@@ -10,8 +10,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 	
-	private static final String MY_EMAIL = "timbantinhvuto@gmail.com";
-	private static final String MY_PASSWORD = "tranmanh90";
+	private static final String MY_EMAIL = "tranmanhstudio@gmail.com";
+	private static final String MY_PASSWORD = "Tranmanh90";
 	public static final String FRIEND_EMAIL = "tranmanh.vn90@gmail.com";
 	
 	@Bean
