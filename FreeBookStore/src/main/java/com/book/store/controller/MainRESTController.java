@@ -11,13 +11,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.book.store.dao.AuthorDAO;
 import com.book.store.dao.BookDAO;
+import com.book.store.model.Author;
 import com.book.store.model.Book;
+import com.book.store.model.BookDetails;
 
 @RestController
 public class MainRESTController {
 	@Autowired
 	private BookDAO bookDAO;
+
+	@Autowired
+	private AuthorDAO authorDAO;
+
+	private List<Book> books;
+	private List<Author> authors;
 
 	// Welcome page
 	// http://54.145.176.109/
@@ -33,8 +42,14 @@ public class MainRESTController {
 			method = RequestMethod.GET, //
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	@ResponseBody
-	public List<Book> getBooks() {
-		return bookDAO.getBooks();
+	public BookDetails getBooks() {
+		books = bookDAO.getBooks();
+		authors = authorDAO.getAuthors();
+
+		for (int i = 0; i < books.size(); i++) {
+			books.get(i).setAuthor(authors.get(i));
+		}
+		return new BookDetails(books);
 	}
 
 	// Get a book

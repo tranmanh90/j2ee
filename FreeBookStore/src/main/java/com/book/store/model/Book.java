@@ -9,6 +9,7 @@ public class Book {
 	private String bookEdition;
 	private String bookISBN;
 	private String postDate;
+	private Author author;
 
 	public Book() {
 		super();
@@ -90,6 +91,14 @@ public class Book {
 	public void setPostDate(String postDate) {
 		this.postDate = postDate;
 	}
+	
+	public Author getAuthor() {
+		return author;
+	}
+	
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
 
 	@Override
 	public String toString() {
@@ -110,6 +119,8 @@ public class Book {
 		builder.append(bookISBN);
 		builder.append(", postDate=");
 		builder.append(postDate);
+		builder.append(", author=");
+		builder.append(author);
 		builder.append("]");
 		return builder.toString();
 	}

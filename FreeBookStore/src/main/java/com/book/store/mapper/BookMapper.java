@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.book.store.model.Author;
 import com.book.store.model.Book;
 
 public class BookMapper implements RowMapper<Book> {
@@ -19,6 +20,7 @@ public class BookMapper implements RowMapper<Book> {
 		String bookEdition		= rs.getString("BOOK_EDITION");
 		String bookISBN			= rs.getString("BOOK_ISBN");
 		String postDate			= rs.getString("POST_DATE");
+		
 		return new Book(bookId, bookTitle, bookDescription, bookPage, bookFormat, bookEdition, bookISBN, postDate);
 	}
 }
