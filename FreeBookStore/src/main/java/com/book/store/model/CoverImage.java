@@ -2,20 +2,22 @@ package com.book.store.model;
 
 public class CoverImage {
 	private String imageId;
-	private String imageUrl;
+	private String imageUrlId;
 	private String imagePath;
 	private String imageName;
-
-	public CoverImage(String imageId, String imageUrl, String imagePath, String imageName) {
-		super();
-		this.imageId = imageId;
-		this.imageUrl = imageUrl;
-		this.imagePath = imagePath;
-		this.imageName = imageName;
-	}
+	private String imageFormat;
 
 	public CoverImage() {
 		super();
+	}
+
+	public CoverImage(String imageId, String imageUrlId, String imagePath, String imageName, String imageFormat) {
+		super();
+		this.imageId = imageId;
+		this.imageUrlId = imageUrlId;
+		this.imagePath = imagePath;
+		this.imageName = imageName;
+		this.imageFormat = imageFormat;
 	}
 
 	public String getImageId() {
@@ -26,12 +28,12 @@ public class CoverImage {
 		this.imageId = imageId;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+	public String getImageUrlId() {
+		return imageUrlId;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImageUrlId(String imageUrlId) {
+		this.imageUrlId = imageUrlId;
 	}
 
 	public String getImagePath() {
@@ -50,17 +52,27 @@ public class CoverImage {
 		this.imageName = imageName;
 	}
 
+	public String getImageFormat() {
+		return imageFormat;
+	}
+
+	public void setImageFormat(String imageFormat) {
+		this.imageFormat = imageFormat;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("CoverImage [imageId=");
 		builder.append(imageId);
-		builder.append(", imageUrl=");
-		builder.append(imageUrl);
+		builder.append(", imageUrlId=");
+		builder.append(imageUrlId);
 		builder.append(", imagePath=");
 		builder.append(imagePath);
 		builder.append(", imageName=");
 		builder.append(imageName);
+		builder.append(", imageFormat=");
+		builder.append(imageFormat);
 		builder.append("]");
 		return builder.toString();
 	}
