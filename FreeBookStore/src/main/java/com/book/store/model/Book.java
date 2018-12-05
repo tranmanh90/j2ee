@@ -12,6 +12,7 @@ public class Book {
 	private String bookISBN;
 	private String postDate;
 	private List<Author> authors;
+	private CoverImage coverImage;
 
 	public Book() {
 		super();
@@ -93,13 +94,21 @@ public class Book {
 	public void setPostDate(String postDate) {
 		this.postDate = postDate;
 	}
-	
+
 	public List<Author> getAuthors() {
 		return authors;
 	}
-	
+
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
+	}
+
+	public CoverImage getCoverImage() {
+		return coverImage;
+	}
+
+	public void setCoverImage(CoverImage coverImage) {
+		this.coverImage = coverImage;
 	}
 
 	@Override
@@ -123,6 +132,8 @@ public class Book {
 		builder.append(postDate);
 		builder.append(", authors=");
 		builder.append(authors);
+		builder.append(", coverImages=");
+		builder.append(coverImage);
 		builder.append("]");
 		return builder.toString();
 	}
