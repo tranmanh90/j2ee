@@ -23,9 +23,21 @@ public class CoverImageDAO extends JdbcDaoSupport {
 	}
 
 	// Read (GET method)
-	public CoverImage getCoverImage(String urlId) {
+	public CoverImage getCoverImageByUrlId(String urlId) {
 		String sql = BASE_SQL + " WHERE CI.IMAGE_URL_ID = ?";
 		Object[] params = new Object[] { urlId };
+		CoverImageMapper mapper = new CoverImageMapper();
+		try {
+			CoverImage coverImage = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+			return coverImage;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	public CoverImage getCoverImageByImageId(String imageId) {
+		String sql = BASE_SQL + " WHERE CI.IMAGE_ID = ?";
+		Object[] params = new Object[] { imageId };
 		CoverImageMapper mapper = new CoverImageMapper();
 		try {
 			CoverImage coverImage = this.getJdbcTemplate().queryForObject(sql, params, mapper);

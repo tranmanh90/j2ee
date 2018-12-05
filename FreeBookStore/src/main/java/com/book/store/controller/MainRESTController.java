@@ -15,11 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.book.store.constant.BTConstants;
 import com.book.store.dao.AuthorDAO;
 import com.book.store.dao.BookAuthorDAO;
+import com.book.store.dao.BookCoverDAO;
 import com.book.store.dao.BookDAO;
+import com.book.store.dao.BookImageUrlDAO;
+import com.book.store.dao.CoverImageDAO;
 import com.book.store.model.Author;
 import com.book.store.model.Book;
 import com.book.store.model.BookAuthor;
+import com.book.store.model.BookCover;
 import com.book.store.model.BookDetails;
+import com.book.store.model.BookImageUrl;
+import com.book.store.model.CoverImage;
 
 @RestController
 public class MainRESTController {
@@ -31,6 +37,17 @@ public class MainRESTController {
 
 	@Autowired
 	private BookAuthorDAO bookAuthorDAO;
+	
+	@Autowired
+	private CoverImageDAO coverImageDAO;
+	
+	
+	@Autowired
+	private BookCoverDAO bookCoverDAO;
+	
+	
+	@Autowired
+	private BookImageUrlDAO bookImageUrlDAO;
 
 	// Welcome page
 	// http://54.145.176.109/
@@ -48,17 +65,18 @@ public class MainRESTController {
 	@ResponseBody
 	public BookDetails getBooks() {
 		Author author;
+		List<CoverImage> listCoverImage;
 		List<Author> authors;
 		List<BookAuthor> bookAuthors = new ArrayList<>();
 		List<Book> books = new ArrayList<>();
 
-		books = bookDAO.getBooks(); // lấy được dánh sách các book có từ tương tự inputtext
+		books = bookDAO.getListBooks(); // lấy được dánh sách các book có từ tương tự inputtext
+		listCoverImage = coverImageDAO.getListCoverImage();
 		if (books != null && books.size() != 0) {
 			for (int i = 0; i < books.size(); i++) {
 				authors = new ArrayList<>();
-				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId()); // lấy ra danh sách các authorId
-																						// có
-																						// cùng bookId
+				// lấy ra danh sách các authorId có cùng bookId
+				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId());
 				for (int j = 0; j < bookAuthors.size(); j++) {
 					author = new Author();
 					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id
@@ -81,6 +99,8 @@ public class MainRESTController {
 	@ResponseBody
 	public BookDetails searchBookByText(@PathVariable("inputText") String inputText) {
 		Author author;
+		BookCover bookCover;
+		BookImageUrl bookImageUrl;
 		List<Author> authors;
 		List<BookAuthor> bookAuthors = new ArrayList<>();
 		List<Book> books = new ArrayList<>();
@@ -89,9 +109,15 @@ public class MainRESTController {
 		if (books != null && books.size() != 0) {
 			for (int i = 0; i < books.size(); i++) {
 				authors = new ArrayList<>();
-				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId()); // lấy ra danh sách các authorId
-																						// có
-																						// cùng bookId
+				// lấy ra danh sách các authorId có cùng bookId
+				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId());
+				
+				// lấy ra imageId tương ứng bookId truyền vào
+				bookCover = bookCoverDAO.getBookCover(books.get(i).getBookId());
+//				coverImage = coverImageDAO.getCoverImageByImageId(bookCover.getImageId());
+				bookImageUrl = bookImageUrlDAO.getBookImageUrl(bookCover.getImageId());
+				books.get(i).setImageUrl(bookImageUrl);
+				
 				for (int j = 0; j < bookAuthors.size(); j++) {
 					author = new Author();
 					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id

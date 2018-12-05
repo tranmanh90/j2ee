@@ -24,8 +24,8 @@ public class ServingImageRESTController {
 	private CoverImageDAO coverImageDAO;
 	
 	@RequestMapping(value = "/image/{urlId}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getCoverImage(@PathVariable("urlId") String urlId) throws IOException {
-		CoverImage coverImage = coverImageDAO.getCoverImage(urlId);
+	public ResponseEntity<byte[]> getCoverImageByUrlId(@PathVariable("urlId") String urlId) throws IOException {
+		CoverImage coverImage = coverImageDAO.getCoverImageByUrlId(urlId);
 		final HttpHeaders headers = new HttpHeaders();
 		if(coverImage != null) {
 			/* "D:/Document/Media/cover" + "/" + "CV0000000000" + "." + "png" */
@@ -37,4 +37,5 @@ public class ServingImageRESTController {
 		}
 		return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 	}
+	
 }

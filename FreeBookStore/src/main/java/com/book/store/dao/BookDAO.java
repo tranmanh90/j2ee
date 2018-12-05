@@ -48,7 +48,7 @@ public class BookDAO extends JdbcDaoSupport {
 		}
 	}
 
-	public List<Book> getBooks() {
+	public List<Book> getListBooks() {
 		String sql = BASE_SQL;
 		Object[] params = new Object[] {};
 		BookMapper mapper = new BookMapper();
