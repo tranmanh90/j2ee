@@ -9,15 +9,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.book.store.mapper.AuthorMapper;
 import com.book.store.mapper.CoverImageMapper;
-import com.book.store.model.Author;
 import com.book.store.model.CoverImage;
 
 @Repository
 public class CoverImageDAO extends JdbcDaoSupport {
 
-	private static final String BASE_SQL = "SELECT CI.IMAGE_ID, CI.IMAGE_URL, CI.IMAGE_PATH, CI.IMAGE_NAME FROM COVER_IMAGES CI";
+	private static final String BASE_SQL = "SELECT CI.IMAGE_ID, CI.IMAGE_PATH, CI.IMAGE_NAME, CI.IMAGE_FORMAT, CI.IMAGE_URL_ID FROM COVER_IMAGES CI";
 
 	@Autowired
 	public CoverImageDAO(DataSource dataSource) {
@@ -25,9 +23,9 @@ public class CoverImageDAO extends JdbcDaoSupport {
 	}
 
 	// Read (GET method)
-	public CoverImage getCoverImage(String imageId) {
-		String sql = BASE_SQL + " WHERE CI.IMAGE_ID = ?";
-		Object[] params = new Object[] { imageId };
+	public CoverImage getCoverImage(String urlId) {
+		String sql = BASE_SQL + " WHERE CI.IMAGE_URL_ID = ?";
+		Object[] params = new Object[] { urlId };
 		CoverImageMapper mapper = new CoverImageMapper();
 		try {
 			CoverImage coverImage = this.getJdbcTemplate().queryForObject(sql, params, mapper);
