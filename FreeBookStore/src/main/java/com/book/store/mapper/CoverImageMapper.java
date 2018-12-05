@@ -12,10 +12,11 @@ public class CoverImageMapper implements RowMapper<CoverImage> {
 	@Override
 	public CoverImage mapRow(ResultSet rs, int rowNum) throws SQLException {
 		String imageId = rs.getString("IMAGE_ID");
-		String imageUrl = rs.getString("IMAGE_URL");
 		String imagePath = rs.getString("IMAGE_PATH");
 		String imageName = rs.getString("IMAGE_NAME");
-		return new CoverImage(imageId, imageUrl, imagePath, imageName);
+		String imageFormat = rs.getString("IMAGE_FORMAT");
+		String imageUrlId = rs.getString("IMAGE_URL_ID");
+		return new CoverImage(imageId, imageUrlId, imagePath, imageName, imageFormat);
 	}
 
 }
