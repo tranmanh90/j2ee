@@ -1,5 +1,6 @@
 package com.book.store.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.book.store.constant.BTConstants;
 import com.book.store.dao.AuthorDAO;
+import com.book.store.dao.BookAuthorDAO;
 import com.book.store.dao.BookDAO;
 import com.book.store.model.Author;
 import com.book.store.model.Book;
+import com.book.store.model.BookAuthor;
 import com.book.store.model.BookDetails;
 
 @RestController
@@ -25,8 +29,8 @@ public class MainRESTController {
 	@Autowired
 	private AuthorDAO authorDAO;
 
-	private List<Book> books;
-	private List<Author> authors;
+	@Autowired
+	private BookAuthorDAO bookAuthorDAO;
 
 	// Welcome page
 	// http://54.145.176.109/
@@ -43,24 +47,94 @@ public class MainRESTController {
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	@ResponseBody
 	public BookDetails getBooks() {
-		books = bookDAO.getBooks();
-		authors = authorDAO.getAuthors();
+		Author author;
+		List<Author> authors;
+		List<BookAuthor> bookAuthors = new ArrayList<>();
+		List<Book> books = new ArrayList<>();
 
-		for (int i = 0; i < books.size(); i++) {
-			books.get(i).setAuthor(authors.get(i));
+		books = bookDAO.getBooks(); // lấy được dánh sách các book có từ tương tự inputtext
+		if (books != null && books.size() != 0) {
+			for (int i = 0; i < books.size(); i++) {
+				authors = new ArrayList<>();
+				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId()); // lấy ra danh sách các authorId
+																						// có
+																						// cùng bookId
+				for (int j = 0; j < bookAuthors.size(); j++) {
+					author = new Author();
+					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id
+					authors.add(author); // lấy ra danh sách các author ứng với cuốn sách đó
+				}
+				books.get(i).setAuthors(authors);
+			}
+		} else {
+			return new BookDetails(BTConstants.RESPONSE.TRN_NOTF, BTConstants.RESPONSE.TRN_MSG_NOTF);
 		}
-		return new BookDetails(books);
+		return new BookDetails(books, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
 	}
 
-	// Get a book
-	// http://54.145.176.109/freebookstore/api/v1/search-by-book-id={bookId}
+	// Search by text
+	// http://54.145.176.109/freebookstore/api/v1/search?input-text={inputText}
+	@RequestMapping(value = "/freebookstore/api/v1/search-by-text={inputText}", //
+			method = RequestMethod.GET, //
+			produces = { MediaType.APPLICATION_JSON_VALUE, //
+					MediaType.APPLICATION_XML_VALUE })
+	@ResponseBody
+	public BookDetails searchBookByText(@PathVariable("inputText") String inputText) {
+		Author author;
+		List<Author> authors;
+		List<BookAuthor> bookAuthors = new ArrayList<>();
+		List<Book> books = new ArrayList<>();
+
+		books = bookDAO.searchBookByText(inputText); // lấy được dánh sách các book có từ tương tự inputtext
+		if (books != null && books.size() != 0) {
+			for (int i = 0; i < books.size(); i++) {
+				authors = new ArrayList<>();
+				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId()); // lấy ra danh sách các authorId
+																						// có
+																						// cùng bookId
+				for (int j = 0; j < bookAuthors.size(); j++) {
+					author = new Author();
+					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id
+					authors.add(author); // lấy ra danh sách các author ứng với cuốn sách đó
+				}
+				books.get(i).setAuthors(authors);
+			}
+		} else {
+			return new BookDetails(BTConstants.RESPONSE.TRN_NOTF, BTConstants.RESPONSE.TRN_MSG_NOTF);
+		}
+		return new BookDetails(books, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
+	}
+
+	// Get a book by ID
+	// http://54.145.176.109/freebookstore/api/v1/search?book-id={bookId}
 	@RequestMapping(value = "/freebookstore/api/v1/search-by-book-id={bookId}", //
 			method = RequestMethod.GET, //
 			produces = { MediaType.APPLICATION_JSON_VALUE, //
 					MediaType.APPLICATION_XML_VALUE })
 	@ResponseBody
-	public Book getBook(@PathVariable("bookId") String bookId) {
-		return bookDAO.getBook(bookId);
+	public BookDetails getBook(@PathVariable("bookId") String bookId) {
+		Author author;
+		List<Author> authors;
+		List<BookAuthor> bookAuthors = new ArrayList<>();
+		List<Book> books = new ArrayList<>();
+
+		books = bookDAO.getBook(bookId); // lấy được dánh sách các book có từ tương tự inputtext
+		if (books != null && books.size() != 0) {
+			for (int i = 0; i < books.size(); i++) {
+				authors = new ArrayList<>();
+				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId());// lấy ra list authorId cùng bookId
+				for (int j = 0; j < bookAuthors.size(); j++) {
+					author = new Author();
+					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id
+					authors.add(author); // lấy ra danh sách các author ứng với cuốn sách đó
+				}
+				books.get(i).setAuthors(authors);
+			}
+		} else {
+			return new BookDetails(BTConstants.RESPONSE.TRN_NOTF, BTConstants.RESPONSE.TRN_MSG_NOTF);
+		}
+
+		return new BookDetails(books, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
 	}
 
 	// Insert a book
