@@ -23,12 +23,25 @@ public class BookDAO extends JdbcDaoSupport {
 	}
 
 	// Read (GET method)
-	public Book getBook(String bookId) {
+	public List<Book> searchBookByText(String inputText) {
+		String sql = BASE_SQL + " WHERE BK.BOOK_TITLE LIKE ?";
+		Object[] params = new Object[] { "%"+inputText+"%" };
+		BookMapper mapper = new BookMapper();
+		try {
+			List<Book> books = this.getJdbcTemplate().query(sql, params, mapper);
+			return books;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	public List<Book> getBook(String bookId) {
 		String sql = BASE_SQL + " WHERE BK.BOOK_ID = ?";
 		Object[] params = new Object[] { bookId };
 		BookMapper mapper = new BookMapper();
 		try {
-			Book book = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+			List<Book> book = this.getJdbcTemplate().query(sql, params, mapper);
+			System.out.println("book======> "+ book.toString());
 			return book;
 		} catch (EmptyResultDataAccessException e) {
 			return null;
