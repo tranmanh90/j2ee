@@ -1,5 +1,7 @@
 package com.book.store.model;
 
+import java.util.List;
+
 public class Book {
 	private String bookId;
 	private String bookTitle;
@@ -9,7 +11,7 @@ public class Book {
 	private String bookEdition;
 	private String bookISBN;
 	private String postDate;
-	private Author author;
+	private List<Author> authors;
 
 	public Book() {
 		super();
@@ -92,12 +94,12 @@ public class Book {
 		this.postDate = postDate;
 	}
 	
-	public Author getAuthor() {
-		return author;
+	public List<Author> getAuthors() {
+		return authors;
 	}
 	
-	public void setAuthor(Author author) {
-		this.author = author;
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
 	}
 
 	@Override
@@ -119,8 +121,8 @@ public class Book {
 		builder.append(bookISBN);
 		builder.append(", postDate=");
 		builder.append(postDate);
-		builder.append(", author=");
-		builder.append(author);
+		builder.append(", authors=");
+		builder.append(authors);
 		builder.append("]");
 		return builder.toString();
 	}
