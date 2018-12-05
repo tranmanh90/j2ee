@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.book.store.model.Author;
 import com.book.store.model.Book;
 
 public class BookMapper implements RowMapper<Book> {
