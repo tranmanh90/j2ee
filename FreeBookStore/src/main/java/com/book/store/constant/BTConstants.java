@@ -9,6 +9,6 @@ public class BTConstants {
 		public static final String TRN_MSG_NOTF = "Data not found";
 	}
 	
-	public static final String COVER_IMAGE_LOCAL_PATH = "D:/Document/Media/cover/";
+	public static final String COVER_IMAGE_LOCAL_PATH = "D:/Document/Media/cover";
 	public static final String COVER_IMAGE_SERVER_PATH = "/opt/book_cover_image/";
 }
