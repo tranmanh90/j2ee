@@ -12,8 +12,8 @@ public class BookImageUrlMapper implements RowMapper<BookImageUrl> {
 	@Override
 	public BookImageUrl mapRow(ResultSet rs, int rowNum) throws SQLException {
 		String imageId = rs.getString("IMAGE_ID");
-		String imageUrl = rs.getString("IMAGE_URL");
-		return new BookImageUrl(imageId, imageUrl);
+		String coverImage = rs.getString("IMAGE_URL");
+		return new BookImageUrl(imageId, coverImage);
 	}
 
 }
