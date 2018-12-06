@@ -13,6 +13,7 @@ public class Book {
 	private String postDate;
 	private List<Author> authors;
 	private BookImageUrl coverImage;
+	private Category category;
 
 	public Book() {
 		super();
@@ -111,6 +112,14 @@ public class Book {
 		this.coverImage = coverImage;
 	}
 
+	public Category getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -134,6 +143,8 @@ public class Book {
 		builder.append(authors);
 		builder.append(", coverImage=");
 		builder.append(coverImage);
+		builder.append(", category=");
+		builder.append(category);
 		builder.append("]");
 		return builder.toString();
 	}
