@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.book.store.mapper.BookImageCloudUrlMapper;
 import com.book.store.mapper.BookImageUrlMapper;
 import com.book.store.model.BookImageUrl;
 
@@ -16,6 +17,8 @@ import com.book.store.model.BookImageUrl;
 public class BookImageUrlDAO extends JdbcDaoSupport {
 
 	private static final String BASE_SQL = "SELECT CI.IMAGE_ID, CI.IMAGE_URL FROM COVER_IMAGES CI";
+	
+	private static final String BASE_SQL_CLOUD = "SELECT CI.IMAGE_ID, CI.IMAGE_CLOUD FROM COVER_IMAGES CI";
 
 	@Autowired
 	public BookImageUrlDAO(DataSource dataSource) {
@@ -33,6 +36,20 @@ public class BookImageUrlDAO extends JdbcDaoSupport {
 			return null;
 		}
 	}
+	
+	
+	public BookImageUrl getBookImageCloudUrl(String imageId) {
+		String sql = BASE_SQL_CLOUD + " WHERE CI.IMAGE_ID = ?";
+		Object[] params = new Object[] { imageId };
+		BookImageCloudUrlMapper mapper = new BookImageCloudUrlMapper();
+		try {
+			BookImageUrl bookImageUrl = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+			return bookImageUrl;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
 	
 	public List<BookImageUrl> getListCoverImage() {
 		String sql = BASE_SQL;
