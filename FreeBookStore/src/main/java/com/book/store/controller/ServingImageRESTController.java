@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.book.store.constant.BTConstants;
 import com.book.store.dao.CoverImageDAO;
 import com.book.store.model.CoverImage;
 
