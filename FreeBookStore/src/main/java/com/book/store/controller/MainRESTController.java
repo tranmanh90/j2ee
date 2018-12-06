@@ -18,14 +18,12 @@ import com.book.store.dao.BookAuthorDAO;
 import com.book.store.dao.BookCoverDAO;
 import com.book.store.dao.BookDAO;
 import com.book.store.dao.BookImageUrlDAO;
-import com.book.store.dao.CoverImageDAO;
 import com.book.store.model.Author;
 import com.book.store.model.Book;
 import com.book.store.model.BookAuthor;
 import com.book.store.model.BookCover;
 import com.book.store.model.BookDetails;
 import com.book.store.model.BookImageUrl;
-import com.book.store.model.CoverImage;
 
 @RestController
 public class MainRESTController {
@@ -37,15 +35,10 @@ public class MainRESTController {
 
 	@Autowired
 	private BookAuthorDAO bookAuthorDAO;
-	
-	@Autowired
-	private CoverImageDAO coverImageDAO;
-	
-	
+
 	@Autowired
 	private BookCoverDAO bookCoverDAO;
-	
-	
+
 	@Autowired
 	private BookImageUrlDAO bookImageUrlDAO;
 
@@ -65,29 +58,33 @@ public class MainRESTController {
 	@ResponseBody
 	public BookDetails getBooks() {
 		Author author;
-		List<CoverImage> listCoverImage;
+		BookCover bookCover;
+		BookImageUrl bookImageUrl;
 		List<Author> authors;
 		List<BookAuthor> bookAuthors = new ArrayList<>();
-		List<Book> books = new ArrayList<>();
-
-		books = bookDAO.getListBooks(); // lấy được dánh sách các book có từ tương tự inputtext
-		listCoverImage = coverImageDAO.getListCoverImage();
-		if (books != null && books.size() != 0) {
-			for (int i = 0; i < books.size(); i++) {
+		List<Book> listBooks = new ArrayList<>();
+		listBooks = bookDAO.getListBooks(); // lấy được dánh sách các book có từ tương tự inputtext
+		if (listBooks != null && listBooks.size() != 0) {
+			for (int i = 0; i < listBooks.size(); i++) {
 				authors = new ArrayList<>();
 				// lấy ra danh sách các authorId có cùng bookId
-				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId());
+				bookAuthors = bookAuthorDAO.getBookAuthors(listBooks.get(i).getBookId());
+
+				bookCover = bookCoverDAO.getBookCover(listBooks.get(i).getBookId());
+				bookImageUrl = bookImageUrlDAO.getBookImageCloudUrl(bookCover != null ? bookCover.getImageId() : null);
+				listBooks.get(i).setCoverImage(bookImageUrl);
+
 				for (int j = 0; j < bookAuthors.size(); j++) {
 					author = new Author();
 					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id
 					authors.add(author); // lấy ra danh sách các author ứng với cuốn sách đó
 				}
-				books.get(i).setAuthors(authors);
+				listBooks.get(i).setAuthors(authors);
 			}
 		} else {
 			return new BookDetails(BTConstants.RESPONSE.TRN_NOTF, BTConstants.RESPONSE.TRN_MSG_NOTF);
 		}
-		return new BookDetails(books, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
+		return new BookDetails(listBooks, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
 	}
 
 	// Search by text
@@ -101,34 +98,34 @@ public class MainRESTController {
 		Author author;
 		BookCover bookCover;
 		BookImageUrl bookImageUrl;
-		List<Author> authors;
-		List<BookAuthor> bookAuthors = new ArrayList<>();
-		List<Book> books = new ArrayList<>();
-
-		books = bookDAO.searchBookByText(inputText); // lấy được dánh sách các book có từ tương tự inputtext
-		if (books != null && books.size() != 0) {
-			for (int i = 0; i < books.size(); i++) {
-				authors = new ArrayList<>();
+		List<Author> listAuthors;
+		List<BookAuthor> listBookAuthors = new ArrayList<>();
+		List<Book> listBooks = new ArrayList<>();
+		// lấy được danh sách book có từ tương tự inputtext
+		listBooks = bookDAO.searchBookByText(inputText);
+		if (listBooks != null && listBooks.size() != 0) {
+			for (int i = 0; i < listBooks.size(); i++) {
+				listAuthors = new ArrayList<>();
 				// lấy ra danh sách các authorId có cùng bookId
-				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId());
-				
+				listBookAuthors = bookAuthorDAO.getBookAuthors(listBooks.get(i).getBookId());
+
 				// lấy ra imageId tương ứng bookId truyền vào
-				bookCover = bookCoverDAO.getBookCover(books.get(i).getBookId());
-//				coverImage = coverImageDAO.getCoverImageByImageId(bookCover.getImageId());
-				bookImageUrl = bookImageUrlDAO.getBookImageUrl(bookCover.getImageId());
-				books.get(i).setImageUrl(bookImageUrl);
-				
-				for (int j = 0; j < bookAuthors.size(); j++) {
+				bookCover = bookCoverDAO.getBookCover(listBooks.get(i).getBookId());
+				System.out.println("bookCover: " + bookCover);
+				bookImageUrl = bookImageUrlDAO.getBookImageCloudUrl(bookCover != null ? bookCover.getImageId() : null);
+				listBooks.get(i).setCoverImage(bookImageUrl);
+
+				for (int j = 0; j < listBookAuthors.size(); j++) {
 					author = new Author();
-					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id
-					authors.add(author); // lấy ra danh sách các author ứng với cuốn sách đó
+					author = authorDAO.getAuthor(listBookAuthors.get(j).getAuthorId()); // get author by author id
+					listAuthors.add(author); // lấy ra danh sách các author ứng với cuốn sách đó
 				}
-				books.get(i).setAuthors(authors);
+				listBooks.get(i).setAuthors(listAuthors);
 			}
 		} else {
 			return new BookDetails(BTConstants.RESPONSE.TRN_NOTF, BTConstants.RESPONSE.TRN_MSG_NOTF);
 		}
-		return new BookDetails(books, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
+		return new BookDetails(listBooks, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
 	}
 
 	// Get a book by ID
