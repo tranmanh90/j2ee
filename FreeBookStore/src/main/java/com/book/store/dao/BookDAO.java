@@ -25,23 +25,22 @@ public class BookDAO extends JdbcDaoSupport {
 	// Read (GET method)
 	public List<Book> searchBookByText(String inputText) {
 		String sql = BASE_SQL + " WHERE BK.BOOK_TITLE LIKE ?";
-		Object[] params = new Object[] { "%"+inputText+"%" };
+		Object[] params = new Object[] { "%" + inputText + "%" };
 		BookMapper mapper = new BookMapper();
 		try {
-			List<Book> books = this.getJdbcTemplate().query(sql, params, mapper);
-			return books;
+			List<Book> listBooks = this.getJdbcTemplate().query(sql, params, mapper);
+			return listBooks;
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
-	
+
 	public List<Book> getBook(String bookId) {
 		String sql = BASE_SQL + " WHERE BK.BOOK_ID = ?";
 		Object[] params = new Object[] { bookId };
 		BookMapper mapper = new BookMapper();
 		try {
 			List<Book> book = this.getJdbcTemplate().query(sql, params, mapper);
-			System.out.println("book======> "+ book.toString());
 			return book;
 		} catch (EmptyResultDataAccessException e) {
 			return null;
@@ -58,15 +57,11 @@ public class BookDAO extends JdbcDaoSupport {
 
 	// Update (PUT method)
 	public List<Book> updateBook(Book book) {
-		String sqlupdate = "UPDATE BOOKS SET BOOK_TITLE = '" 	+ book.getBookTitle() 
-							 + "', BOOK_DESCRIPTION = '" 		+ book.getBookDescription() 
-							 + "', BOOK_PAGE = '" 				+ book.getBookPage() 
-							 + "', BOOK_FORMAT = '" 			+ book.getBookFormat() 
-							 + "', BOOK_EDITION = '" 			+ book.getBookEdition() 
-							 + "', BOOK_ISBN = '" 				+ book.getBookISBN() 
-							 + "', POST_DATE = '" 				+ book.getPostDate() 
-							 + "' WHERE BOOK_ID = '" 			+ book.getBookId() 
-							 + "'";
+		String sqlupdate = "UPDATE BOOKS SET BOOK_TITLE = '" + book.getBookTitle() + "', BOOK_DESCRIPTION = '"
+				+ book.getBookDescription() + "', BOOK_PAGE = '" + book.getBookPage() + "', BOOK_FORMAT = '"
+				+ book.getBookFormat() + "', BOOK_EDITION = '" + book.getBookEdition() + "', BOOK_ISBN = '"
+				+ book.getBookISBN() + "', POST_DATE = '" + book.getPostDate() + "' WHERE BOOK_ID = '"
+				+ book.getBookId() + "'";
 		this.getJdbcTemplate().update(sqlupdate);
 
 		// Return results
@@ -79,15 +74,9 @@ public class BookDAO extends JdbcDaoSupport {
 
 	// Create (POST method)
 	public List<Book> createBook(Book book) {
-		String sqlcreate = "INSERT INTO BOOKS VALUES('" 
-															+ book.getBookId() + "','" 
-															+ book.getBookTitle() + "','" 
-															+ book.getBookDescription() + "','"
-															+ book.getBookPage() + "','"
-															+ book.getBookFormat() + "','"
-															+ book.getBookEdition() + "','"
-															+ book.getBookISBN() + "','"
-															+ book.getPostDate() + "')";
+		String sqlcreate = "INSERT INTO BOOKS VALUES('" + book.getBookId() + "','" + book.getBookTitle() + "','"
+				+ book.getBookDescription() + "','" + book.getBookPage() + "','" + book.getBookFormat() + "','"
+				+ book.getBookEdition() + "','" + book.getBookISBN() + "','" + book.getPostDate() + "')";
 		this.getJdbcTemplate().update(sqlcreate);
 
 		// Return results
