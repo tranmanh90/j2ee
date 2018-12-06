@@ -1,23 +1,13 @@
 package com.book.store.model;
 
 public class BookCategory {
-	private String id;
 	private String bookId;
 	private String categoryId;
 
-	public BookCategory(String id, String bookId, String categoryId) {
+	public BookCategory(String bookId, String categoryId) {
 		super();
-		this.id = id;
 		this.bookId = bookId;
 		this.categoryId = categoryId;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getBookId() {
@@ -39,9 +29,7 @@ public class BookCategory {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BookCategory [id=");
-		builder.append(id);
-		builder.append(", bookId=");
+		builder.append("BookCategory [bookId=");
 		builder.append(bookId);
 		builder.append(", categoryId=");
 		builder.append(categoryId);
