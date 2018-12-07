@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.book.store.constant.BTConstants;
 import com.book.store.dao.AuthorDAO;
 import com.book.store.dao.BookAuthorDAO;
+import com.book.store.dao.BookCategoryDAO;
 import com.book.store.dao.BookCoverDAO;
 import com.book.store.dao.BookDAO;
 import com.book.store.dao.BookImageUrlDAO;
+import com.book.store.dao.CategoryDAO;
 import com.book.store.model.Author;
 import com.book.store.model.Book;
 import com.book.store.model.BookAuthor;
+import com.book.store.model.BookCategory;
 import com.book.store.model.BookCover;
 import com.book.store.model.BookDetails;
 import com.book.store.model.BookImageUrl;
+import com.book.store.model.Category;
 
 @RestController
 public class MainRESTController {
@@ -32,6 +36,12 @@ public class MainRESTController {
 
 	@Autowired
 	private AuthorDAO authorDAO;
+
+	@Autowired
+	private CategoryDAO categoryDAO;
+
+	@Autowired
+	private BookCategoryDAO bookCategoryDAO;
 
 	@Autowired
 	private BookAuthorDAO bookAuthorDAO;
@@ -97,6 +107,8 @@ public class MainRESTController {
 	public BookDetails searchBookByText(@PathVariable("inputText") String inputText) {
 		Author author;
 		BookCover bookCover;
+		BookCategory bookCategory;
+		Category category;
 		BookImageUrl bookImageUrl;
 		List<Author> listAuthors;
 		List<BookAuthor> listBookAuthors = new ArrayList<>();
@@ -111,9 +123,13 @@ public class MainRESTController {
 
 				// lấy ra imageId tương ứng bookId truyền vào
 				bookCover = bookCoverDAO.getBookCover(listBooks.get(i).getBookId());
-				System.out.println("bookCover: " + bookCover);
 				bookImageUrl = bookImageUrlDAO.getBookImageCloudUrl(bookCover != null ? bookCover.getImageId() : null);
 				listBooks.get(i).setCoverImage(bookImageUrl);
+
+				// lấy ra categoryID tương ứng bookId truyền vào
+				bookCategory = bookCategoryDAO.getBookCategory(listBooks.get(i).getBookId());
+				category = categoryDAO.getCategory(bookCategory != null ? bookCategory.getCategoryId() : null);
+				listBooks.get(i).setCategory(category);
 
 				for (int j = 0; j < listBookAuthors.size(); j++) {
 					author = new Author();
