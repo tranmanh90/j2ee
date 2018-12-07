@@ -34,7 +34,7 @@ import com.book.store.model.Category;
 import com.book.store.model.DownloadLink;
 
 @RestController
-public class MainRESTController {
+public class BookRESTController {
 
 	// Book
 	@Autowired
