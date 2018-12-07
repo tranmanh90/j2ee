@@ -14,6 +14,7 @@ public class Book {
 	private List<Author> authors;
 	private BookImageUrl coverImage;
 	private Category category;
+	private DownloadLink downloadLink;
 
 	public Book() {
 		super();
@@ -120,6 +121,14 @@ public class Book {
 		this.category = category;
 	}
 
+	public DownloadLink getDownloadLink() {
+		return this.downloadLink;
+	}
+
+	public void setDownloadLink(DownloadLink downloadLink) {
+		this.downloadLink = downloadLink;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -145,6 +154,8 @@ public class Book {
 		builder.append(coverImage);
 		builder.append(", category=");
 		builder.append(category);
+		builder.append(", downloadLink=");
+		builder.append(downloadLink);
 		builder.append("]");
 		return builder.toString();
 	}
