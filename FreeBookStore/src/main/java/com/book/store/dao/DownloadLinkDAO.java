@@ -14,7 +14,7 @@ import com.book.store.model.DownloadLink;
 
 @Repository
 public class DownloadLinkDAO extends JdbcDaoSupport {
-	private static final String BASE_DOWNLOAD_LINK_SQL = "SELECT DL.LINK_ID, DL.LINK_URL FROM DOWNLAOD_LINKS DL";
+	private static final String BASE_DOWNLOAD_LINK_SQL = "SELECT DL.LINK_ID, DL.LINK_URL FROM DOWNLOAD_LINKS DL";
 
 	@Autowired
 	public DownloadLinkDAO(DataSource dataSource) {
