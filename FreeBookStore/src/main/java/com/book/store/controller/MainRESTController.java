@@ -19,7 +19,9 @@ import com.book.store.dao.BookCategoryDAO;
 import com.book.store.dao.BookCoverDAO;
 import com.book.store.dao.BookDAO;
 import com.book.store.dao.BookImageUrlDAO;
+import com.book.store.dao.BookLinkDAO;
 import com.book.store.dao.CategoryDAO;
+import com.book.store.dao.DownloadLinkDAO;
 import com.book.store.model.Author;
 import com.book.store.model.Book;
 import com.book.store.model.BookAuthor;
@@ -27,30 +29,40 @@ import com.book.store.model.BookCategory;
 import com.book.store.model.BookCover;
 import com.book.store.model.BookDetails;
 import com.book.store.model.BookImageUrl;
+import com.book.store.model.BookLink;
 import com.book.store.model.Category;
+import com.book.store.model.DownloadLink;
 
 @RestController
 public class MainRESTController {
+
+	// Book
 	@Autowired
 	private BookDAO bookDAO;
 
+	// Book author
 	@Autowired
 	private AuthorDAO authorDAO;
-
-	@Autowired
-	private CategoryDAO categoryDAO;
-
-	@Autowired
-	private BookCategoryDAO bookCategoryDAO;
-
 	@Autowired
 	private BookAuthorDAO bookAuthorDAO;
 
+	// Category
+	@Autowired
+	private CategoryDAO categoryDAO;
+	@Autowired
+	private BookCategoryDAO bookCategoryDAO;
+
+	// Cover image
 	@Autowired
 	private BookCoverDAO bookCoverDAO;
-
 	@Autowired
 	private BookImageUrlDAO bookImageUrlDAO;
+
+	// Download link
+	@Autowired
+	private DownloadLinkDAO downloadLinkDAO;
+	@Autowired
+	private BookLinkDAO bookLinkDAO;
 
 	// Welcome page
 	// http://54.145.176.109/
@@ -70,6 +82,11 @@ public class MainRESTController {
 		Author author;
 		BookCover bookCover;
 		BookImageUrl bookImageUrl;
+		BookCategory bookCategory;
+		Category category;
+		BookLink bookLink;
+		DownloadLink downloadLink;
+
 		List<Author> authors;
 		List<BookAuthor> bookAuthors = new ArrayList<>();
 		List<Book> listBooks = new ArrayList<>();
@@ -80,9 +97,20 @@ public class MainRESTController {
 				// lấy ra danh sách các authorId có cùng bookId
 				bookAuthors = bookAuthorDAO.getBookAuthors(listBooks.get(i).getBookId());
 
+				// lấy ra imageId tương ứng bookId truyền vào
 				bookCover = bookCoverDAO.getBookCover(listBooks.get(i).getBookId());
 				bookImageUrl = bookImageUrlDAO.getBookImageCloudUrl(bookCover != null ? bookCover.getImageId() : null);
 				listBooks.get(i).setCoverImage(bookImageUrl);
+
+				// lấy ra categoryID tương ứng bookId truyền vào
+				bookCategory = bookCategoryDAO.getBookCategory(listBooks.get(i).getBookId());
+				category = categoryDAO.getCategory(bookCategory != null ? bookCategory.getCategoryId() : null);
+				listBooks.get(i).setCategory(category);
+
+				// lấy ra linkId tương ứng với bookId truyền vào
+				bookLink = bookLinkDAO.getBookLink(listBooks.get(i).getBookId());
+				downloadLink = downloadLinkDAO.getDownloadLink(bookLink != null ? bookLink.getLinkId() : null);
+				listBooks.get(i).setDownloadLink(downloadLink);
 
 				for (int j = 0; j < bookAuthors.size(); j++) {
 					author = new Author();
@@ -110,6 +138,8 @@ public class MainRESTController {
 		BookCategory bookCategory;
 		Category category;
 		BookImageUrl bookImageUrl;
+		BookLink bookLink;
+		DownloadLink downloadLink;
 		List<Author> listAuthors;
 		List<BookAuthor> listBookAuthors = new ArrayList<>();
 		List<Book> listBooks = new ArrayList<>();
@@ -130,6 +160,11 @@ public class MainRESTController {
 				bookCategory = bookCategoryDAO.getBookCategory(listBooks.get(i).getBookId());
 				category = categoryDAO.getCategory(bookCategory != null ? bookCategory.getCategoryId() : null);
 				listBooks.get(i).setCategory(category);
+
+				// lấy ra linkId tương ứng với bookId truyền vào
+				bookLink = bookLinkDAO.getBookLink(listBooks.get(i).getBookId());
+				downloadLink = downloadLinkDAO.getDownloadLink(bookLink != null ? bookLink.getLinkId() : null);
+				listBooks.get(i).setDownloadLink(downloadLink);
 
 				for (int j = 0; j < listBookAuthors.size(); j++) {
 					author = new Author();
