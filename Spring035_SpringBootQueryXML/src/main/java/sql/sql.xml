@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dbQuery>
+	<select id="searchBookByAuthor">
+		SELECT * FROM BOOKS
+	</select>
+</dbQuery>
