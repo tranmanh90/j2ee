@@ -1,4 +1,4 @@
-package com.book.store;
+package com.training.spring;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
