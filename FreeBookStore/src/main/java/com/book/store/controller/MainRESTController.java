@@ -188,27 +188,51 @@ public class MainRESTController {
 	@ResponseBody
 	public BookDetails getBook(@PathVariable("bookId") String bookId) {
 		Author author;
+		BookCover bookCover;
+		BookCategory bookCategory;
+		Category category;
+		BookImageUrl bookImageUrl;
+		BookLink bookLink;
+		DownloadLink downloadLink;
 		List<Author> authors;
 		List<BookAuthor> bookAuthors = new ArrayList<>();
-		List<Book> books = new ArrayList<>();
+		List<Book> listBooks = new ArrayList<>();
 
-		books = bookDAO.getBook(bookId); // lấy được dánh sách các book có từ tương tự inputtext
-		if (books != null && books.size() != 0) {
-			for (int i = 0; i < books.size(); i++) {
+		listBooks = bookDAO.getBook(bookId); // lấy được dánh sách các book có từ tương tự inputtext
+		if (listBooks != null && listBooks.size() != 0) {
+			for (int i = 0; i < listBooks.size(); i++) {
 				authors = new ArrayList<>();
-				bookAuthors = bookAuthorDAO.getBookAuthors(books.get(i).getBookId());// lấy ra list authorId cùng bookId
+
+				// lấy ra danh sách các authorId có cùng bookId
+				bookAuthors = bookAuthorDAO.getBookAuthors(listBooks.get(i).getBookId());
+
+				// lấy ra imageId tương ứng bookId truyền vào
+				bookCover = bookCoverDAO.getBookCover(listBooks.get(i).getBookId());
+				bookImageUrl = bookImageUrlDAO.getBookImageCloudUrl(bookCover != null ? bookCover.getImageId() : null);
+				listBooks.get(i).setCoverImage(bookImageUrl);
+
+				// lấy ra categoryID tương ứng bookId truyền vào
+				bookCategory = bookCategoryDAO.getBookCategory(listBooks.get(i).getBookId());
+				category = categoryDAO.getCategory(bookCategory != null ? bookCategory.getCategoryId() : null);
+				listBooks.get(i).setCategory(category);
+
+				// lấy ra linkId tương ứng với bookId truyền vào
+				bookLink = bookLinkDAO.getBookLink(listBooks.get(i).getBookId());
+				downloadLink = downloadLinkDAO.getDownloadLink(bookLink != null ? bookLink.getLinkId() : null);
+				listBooks.get(i).setDownloadLink(downloadLink);
+
 				for (int j = 0; j < bookAuthors.size(); j++) {
 					author = new Author();
 					author = authorDAO.getAuthor(bookAuthors.get(j).getAuthorId()); // get author by author id
 					authors.add(author); // lấy ra danh sách các author ứng với cuốn sách đó
 				}
-				books.get(i).setAuthors(authors);
+				listBooks.get(i).setAuthors(authors);
 			}
 		} else {
 			return new BookDetails(BTConstants.RESPONSE.TRN_NOTF, BTConstants.RESPONSE.TRN_MSG_NOTF);
 		}
 
-		return new BookDetails(books, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
+		return new BookDetails(listBooks, BTConstants.RESPONSE.TRN_SUCC, BTConstants.RESPONSE.TRN_MSG_SUCC);
 	}
 
 	// Insert a book
