@@ -16,6 +16,7 @@ import com.book.store.model.Book;
 public class BookDAO extends JdbcDaoSupport {
 
 	private static final String BASE_SQL = "SELECT BK.BOOK_ID, BK.BOOK_TITLE, BK.BOOK_DESCRIPTION, BK.BOOK_PAGE, BK.BOOK_FORMAT, BK.BOOK_EDITION, BK.BOOK_ISBN, BK.POST_DATE FROM BOOKS BK";
+	private static final String BASE_AUTHOR_SQL = "SELCT AU.AUTHOR_ID, AU.AUTHOR_NAME, AU.AUTHOR_ABOUT FROM AUTHORS AU";
 
 	@Autowired
 	public BookDAO(DataSource dataSource) {
@@ -25,6 +26,19 @@ public class BookDAO extends JdbcDaoSupport {
 	// Read (GET method)
 	public List<Book> searchBookByText(String inputText) {
 		String sql = BASE_SQL + " WHERE BK.BOOK_TITLE LIKE ?";
+		Object[] params = new Object[] { "%" + inputText + "%" };
+		BookMapper mapper = new BookMapper();
+		try {
+			List<Book> listBooks = this.getJdbcTemplate().query(sql, params, mapper);
+			return listBooks;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	// Read (GET method)
+	public List<Book> searchBookByAuthor(String inputText) {
+		String sql = BASE_AUTHOR_SQL + " WHERE AU.AUTHOR_NAME LIKE ?";
 		Object[] params = new Object[] { "%" + inputText + "%" };
 		BookMapper mapper = new BookMapper();
 		try {
