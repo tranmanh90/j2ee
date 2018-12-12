@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<sqlLoader>
+	<dataSources>
+		<dataSource type="JNDI" name="tranmanh">
+			<property name="DataSource" value="jdbc/tranmanh" />
+		</dataSource>
+	</dataSources>
+
+	<sqlList>
+		<sql resource="sql/book.xml" />
+	</sqlList>
+</sqlLoader>
