@@ -28,17 +28,13 @@ public class SqlLoader {
 
 	public String getSql(String query) {
 		String tableName = query.substring(0, query.indexOf('.'));
-		System.out.println("tableName: " + tableName);
 		String queryId = query.substring(query.indexOf('.') + 1);
-		System.out.println("queryId: " + queryId);
 		String file = "/sql/" + tableName + ".xml";
-		System.out.println("file: " + file);
 
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(DataBaseQuery.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			DataBaseQuery dbQuery = (DataBaseQuery) jaxbUnmarshaller.unmarshal(getLocalFile(file));
-			System.out.println("queryId.substring(0): " + queryId.substring(0, 1));
 			switch (queryId.substring(0, 1)) {
 			case "s":
 				return selectSql(dbQuery, queryId);
