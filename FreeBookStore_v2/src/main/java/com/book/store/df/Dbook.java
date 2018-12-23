@@ -97,10 +97,10 @@ public class Dbook {
 	 * @return A book with the corresponding ID
 	 *************************************************************/
 	public List<Book00VO> s001(Book00VO vo) {
-		String methodName = "s000";
+		String methodName = "s001";
 		logger.info(className + ": " + methodName);
-		String query = "BOOKS.s000";
-		Object[] pMapper = new Object[] {vo.getBookId() };
+		String query = "BOOKS.s001";
+		Object[] pMapper = new Object[] {vo.getPage(), vo.getRowPerPage(), vo.getBookId() };
 
 		RowMapper<Book00VO> rMapper = new RowMapper<Book00VO>() {
 			@Override

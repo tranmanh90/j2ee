@@ -15,31 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 import com.book.store.BaseRespone;
 import com.book.store.IBasePM;
 import com.book.store.IBaseTM;
-import com.book.store.dto.Book00Request;
-import com.book.store.dto.Book00Response;
-import com.book.store.pm.PMBook00;
+import com.book.store.dto.Book01Request;
+import com.book.store.dto.Book01Response;
+import com.book.store.pm.PMBook01;
 
 @RestController
-public class TMBook00 implements IBaseTM<Book00Request, Book00Response> {
+public class TMBook01 implements IBaseTM<Book01Request, Book01Response> {
 	private String className = getClass().getName();
 	private Logger logger = LoggerFactory.getLogger(className);
-	private IBasePM<Book00Request, Book00Response> pm = new PMBook00();
+	private IBasePM<Book01Request, Book01Response> pm = new PMBook01();
 
-	@RequestMapping(value = "/freebookstore/api/v2/search-book-by-title", //
+	@RequestMapping(value = "/freebookstore/api/v2/search-book-by-id", //
 			method = RequestMethod.GET, //
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	@ResponseBody
-	public BaseRespone[] execute(@RequestBody Book00Request request) {
+	public BaseRespone[] execute(@RequestBody Book01Request request) {
 		logger.info("BookRequest: " + request.toString());
-		Book00Response response = pm.execute(request);
+		Book01Response response = pm.execute(request);
 		List<BaseRespone> resultDto = new ArrayList<>();
 		resultDto.add(response);
 		return resultDto.toArray(new BaseRespone[resultDto.size()]);
 	}
 
 	@Override
-	public void postProcess(Book00Request request, Book00Response response) {
+	public void postProcess(Book01Request request, Book01Response response) {
 		// TODO Auto-generated method stub
+
 	}
 
 }

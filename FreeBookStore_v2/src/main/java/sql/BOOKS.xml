@@ -9,8 +9,8 @@
 			SET @StartRow = ((@PageIndex - 1) * @RowsPerPage) + 1;
 			SET @EndRow = @StartRow + @RowsPerPage - 1;
 
-			DECLARE @ParamBookId NVARCHAR(20);
-			SET @ParamBookId = LTRIM(RTRIM(?));
+			DECLARE @ParamBookTitle NVARCHAR(200);
+			SET @ParamBookTitle = LTRIM(RTRIM(?));
 			
 			WITH pageinfo AS ( SELECT *, ROW_NUMBER() OVER(ORDER BY BOOK_ID ASC) AS ROW_NO, COUNT(*) OVER() AS TOTAL_ROWS 
 			FROM( 
@@ -72,13 +72,13 @@
 	<!-- search book by id -->
 	<select id="s001">
 			DECLARE @PageIndex INT, @RowsPerPage INT, @StartRow INT, @EndRow INT;
-			SET @PageIndex = 1;
-			SET @RowsPerPage = 1;
+			SET @PageIndex = ?;
+			SET @RowsPerPage = ?;
 			SET @StartRow = ((@PageIndex - 1) * @RowsPerPage) + 1;
 			SET @EndRow = @StartRow + @RowsPerPage - 1;
 
-			DECLARE @ParamBookTitle NVARCHAR(100);
-			SET @ParamBookTitle = LTRIM(RTRIM(?));
+			DECLARE @ParamBookId NVARCHAR(20);
+			SET @ParamBookId = LTRIM(RTRIM(?));
 			
 			WITH pageinfo AS ( SELECT *, ROW_NUMBER() OVER(ORDER BY BOOK_ID ASC) AS ROW_NO, COUNT(*) OVER() AS TOTAL_ROWS 
 			FROM( 

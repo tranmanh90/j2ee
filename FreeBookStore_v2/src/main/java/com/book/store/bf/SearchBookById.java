@@ -32,7 +32,6 @@ public class SearchBookById {
 	 * @return A searched books
 	 *************************************************************/
 	public List<Book00VO> execute(Book00VO vo) {
-		logger.info("");
 		List<Book00VO> returnList = null;
 		returnList = df.s001(vo);
 		return returnList;
