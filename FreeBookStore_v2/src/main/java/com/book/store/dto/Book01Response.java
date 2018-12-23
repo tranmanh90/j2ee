@@ -9,7 +9,7 @@ public class Book01Response extends BaseRespone {
 	private int page;
 	private int totalRows;
 	private int totalPages;
-	private Book00Dto[] listBooks;
+	private Book01Dto[] listBooks;
 
 	public int getPage() {
 		return page;
@@ -35,18 +35,18 @@ public class Book01Response extends BaseRespone {
 		this.totalPages = totalPages;
 	}
 
-	public Book00Dto[] getListBooks() {
+	public Book01Dto[] getListBooks() {
 		return listBooks;
 	}
 
-	public void setListBooks(Book00Dto[] listBooks) {
+	public void setListBooks(Book01Dto[] listBooks) {
 		this.listBooks = listBooks;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Book00Response [page=");
+		builder.append("Book01Response [page=");
 		builder.append(page);
 		builder.append(", totalRows=");
 		builder.append(totalRows);

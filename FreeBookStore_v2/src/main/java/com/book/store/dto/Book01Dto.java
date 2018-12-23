@@ -16,7 +16,7 @@ public class Book01Dto {
 	private String bookEdition;
 	private String bookIsbn;
 	private String postDate;
-	private Author00Dto[] authors;
+	private Author01Dto[] authors;
 	private String imageCloud;
 	private String categoryId;
 	private String linkUrl;
@@ -85,11 +85,11 @@ public class Book01Dto {
 		this.postDate = postDate;
 	}
 
-	public Author00Dto[] getAuthors() {
+	public Author01Dto[] getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(Author00Dto[] authors) {
+	public void setAuthors(Author01Dto[] authors) {
 		this.authors = authors;
 	}
 
@@ -120,7 +120,7 @@ public class Book01Dto {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Book00Dto [bookId=");
+		builder.append("Book01Dto [bookId=");
 		builder.append(bookId);
 		builder.append(", bookTitle=");
 		builder.append(bookTitle);

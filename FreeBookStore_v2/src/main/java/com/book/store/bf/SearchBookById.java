@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.book.store.df.Dbook;
-import com.book.store.vo.Book00VO;
+import com.book.store.vo.Book01VO;
 
 /**************************************************************
  * <pre>
@@ -31,8 +31,8 @@ public class SearchBookById {
 	 * @param vo request data from client
 	 * @return A searched books
 	 *************************************************************/
-	public List<Book00VO> execute(Book00VO vo) {
-		List<Book00VO> returnList = null;
+	public List<Book01VO> execute(Book01VO vo) {
+		List<Book01VO> returnList = null;
 		returnList = df.s001(vo);
 		return returnList;
 	}

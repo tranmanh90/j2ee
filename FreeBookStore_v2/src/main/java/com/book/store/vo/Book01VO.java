@@ -136,7 +136,7 @@ public class Book01VO extends BaseVO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Book00VO [bookId=");
+		builder.append("Book01VO [bookId=");
 		builder.append(bookId);
 		builder.append(", bookTitle=");
 		builder.append(bookTitle);

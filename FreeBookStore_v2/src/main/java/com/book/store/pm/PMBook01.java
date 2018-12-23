@@ -12,12 +12,11 @@ import com.book.store.BookConstant;
 import com.book.store.IBasePM;
 import com.book.store.common.IBDBookStore;
 import com.book.store.common.IIBookStore;
-import com.book.store.dto.Author00Dto;
-import com.book.store.dto.Book00Dto;
-import com.book.store.dto.Book00Response;
+import com.book.store.dto.Author01Dto;
+import com.book.store.dto.Book01Dto;
 import com.book.store.dto.Book01Request;
 import com.book.store.dto.Book01Response;
-import com.book.store.vo.Book00VO;
+import com.book.store.vo.Book01VO;
 
 public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 
@@ -33,30 +32,30 @@ public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 	}
 
 	private Book01Response searchBookById(Book01Request request) {
-		Book00VO inVO = null;
+		Book01VO inVO = null;
 		inVO = toVO(request);
-		List<Book00VO> outList = iibt.searchBookById(inVO);
+		List<Book01VO> outList = iibt.searchBookById(inVO);
 		logger.info("outList: ===========> " + outList.toString());
 		Book01Response response = toDTO(outList);
 		return response;
 	}
 
-	private Book00VO toVO(Book01Request request) {
-		Book00VO vo = new Book00VO();
+	private Book01VO toVO(Book01Request request) {
+		Book01VO vo = new Book01VO();
 		vo.setPage(request.getPage());
 		vo.setRowPerPage(request.getRowPerPage());
 		vo.setBookId(request.getBookId());
 		return vo;
 	}
 
-	private Book01Response toDTO(List<Book00VO> inVO) {
+	private Book01Response toDTO(List<Book01VO> inVO) {
 		logger.info("toDTO: " + inVO.toString());
 		Book01Response response = new Book01Response();
-		List<Book00Dto> listBooks = new ArrayList<>();
+		List<Book01Dto> listBooks = new ArrayList<>();
 		Map<String, Integer> mapBookId = new HashMap<String, Integer>();
-		List<Author00Dto> listAuthors = null;
-		Book00Dto row = null;
-		Author00Dto author = null;
+		List<Author01Dto> listAuthors = null;
+		Book01Dto row = null;
+		Author01Dto author = null;
 		String key;
 		int value;
 
@@ -74,13 +73,13 @@ public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 			response.setRspMsg(BookConstant.TRN_MSG_NOTF);
 		}
 
-		for (Book00VO vo : inVO) {
+		for (Book01VO vo : inVO) {
 			Integer cnt = mapBookId.get(vo.getBookId());
 			mapBookId.put(vo.getBookId(), (cnt == null) ? 1 : ++cnt);
 		}
 
 		for (Map.Entry<String, Integer> entry : mapBookId.entrySet()) {
-			row = new Book00Dto();
+			row = new Book01Dto();
 			key = entry.getKey();
 			value = entry.getValue();
 			response.setTotalRows(inVO.get(0).getTotalRows() - value + 1);
@@ -89,7 +88,7 @@ public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 				listAuthors = new ArrayList<>();
 				for (int i = 0; i < inVO.size(); i++) {
 					if (inVO.get(i).getBookId().equals(key)) {
-						author = new Author00Dto();
+						author = new Author01Dto();
 						row.setBookId(key);
 						row.setBookTitle(inVO.get(i).getBookTitle());
 						row.setBookDescription(inVO.get(i).getBookDescription());
@@ -108,13 +107,13 @@ public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 
 					}
 				}
-				row.setAuthors(listAuthors.toArray(new Author00Dto[listAuthors.size()]));
+				row.setAuthors(listAuthors.toArray(new Author01Dto[listAuthors.size()]));
 				listBooks.add(row);
 			} else {
 				listAuthors = new ArrayList<>();
 				for (int i = 0; i < inVO.size(); i++) {
 					if (inVO.get(i).getBookId().equals(key)) {
-						author = new Author00Dto();
+						author = new Author01Dto();
 						row.setBookId(key);
 						row.setBookTitle(inVO.get(i).getBookTitle());
 						row.setBookDescription(inVO.get(i).getBookDescription());
@@ -132,7 +131,7 @@ public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 						listAuthors.add(author);
 					}
 				}
-				row.setAuthors(listAuthors.toArray(new Author00Dto[listAuthors.size()]));
+				row.setAuthors(listAuthors.toArray(new Author01Dto[listAuthors.size()]));
 				listBooks.add(row);
 			}
 		}
@@ -155,7 +154,7 @@ public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 //			listBooks.add(row);
 //		}
 
-		Book00Dto[] arrGrd = listBooks.toArray(new Book00Dto[listBooks.size()]);
+		Book01Dto[] arrGrd = listBooks.toArray(new Book01Dto[listBooks.size()]);
 		response.setListBooks(arrGrd);
 		return response;
 	}

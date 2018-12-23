@@ -3,9 +3,10 @@ package com.book.store.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.book.store.bf.SearchBookByTitle;
 import com.book.store.bf.SearchBookById;
+import com.book.store.bf.SearchBookByTitle;
 import com.book.store.vo.Book00VO;
+import com.book.store.vo.Book01VO;
 
 public class IBDBookStore implements IIBookStore {
 
@@ -18,9 +19,9 @@ public class IBDBookStore implements IIBookStore {
 	}
 
 	@Override
-	public List<Book00VO> searchBookById(Book00VO vo) {
+	public List<Book01VO> searchBookById(Book01VO vo) {
 		SearchBookById searchBookById = new SearchBookById();
-		List<Book00VO> listBook = new ArrayList<>();
+		List<Book01VO> listBook = new ArrayList<>();
 		listBook = searchBookById.execute(vo);
 		return listBook;
 	}

@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.book.store.config.ConfigDataSource;
 import com.book.store.query.SqlLoader;
 import com.book.store.vo.Book00VO;
+import com.book.store.vo.Book01VO;
 
 /**************************************************************
  * <pre>
@@ -96,17 +97,17 @@ public class Dbook {
 	 * @param vo Request data from client
 	 * @return A book with the corresponding ID
 	 *************************************************************/
-	public List<Book00VO> s001(Book00VO vo) {
+	public List<Book01VO> s001(Book01VO vo) {
 		String methodName = "s001";
 		logger.info(className + ": " + methodName);
 		String query = "BOOKS.s001";
 		Object[] pMapper = new Object[] {vo.getPage(), vo.getRowPerPage(), vo.getBookId() };
 
-		RowMapper<Book00VO> rMapper = new RowMapper<Book00VO>() {
+		RowMapper<Book01VO> rMapper = new RowMapper<Book01VO>() {
 			@Override
-			public Book00VO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			public Book01VO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				String tempString = "";
-				Book00VO returnVO = new Book00VO();
+				Book01VO returnVO = new Book01VO();
 
 				returnVO.setTotalPages(rs.getInt("TOTAL_PAGES"));
 				returnVO.setTotalRows(rs.getInt("TOTAL_ROWS"));
