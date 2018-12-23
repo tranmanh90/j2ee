@@ -7,7 +7,7 @@ import com.book.store.df.Dbook;
 import com.book.store.vo.Book00VO;
 
 
-public class RetrieveBookDetailList {
+public class SearchBookByTitle {
 	
 	private Dbook df = new Dbook();
 

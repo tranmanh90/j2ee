@@ -3,17 +3,17 @@ package com.book.store.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.book.store.bf.RetrieveBookDetailList;
+import com.book.store.bf.SearchBookByTitle;
 import com.book.store.bf.SearchBookById;
 import com.book.store.vo.Book00VO;
 
 public class IBDBookStore implements IIBookStore {
 
 	@Override
-	public List<Book00VO> retrieveBookDetailList(Book00VO vo) {
-		RetrieveBookDetailList retrieveBookDetailList = new RetrieveBookDetailList();
+	public List<Book00VO> searchBookByTitle(Book00VO vo) {
+		SearchBookByTitle searchBookByTitle = new SearchBookByTitle();
 		List<Book00VO> listBook = new ArrayList<>();
-		listBook = retrieveBookDetailList.execute(vo);
+		listBook = searchBookByTitle.execute(vo);
 		return listBook;
 	}
 

@@ -34,7 +34,7 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 	private Book00Response retrieveBookDetails(Book00Request request) {
 		Book00VO inVO = null;
 		inVO = toVO(request);
-		List<Book00VO> outList = iibt.retrieveBookDetailList(inVO);
+		List<Book00VO> outList = iibt.searchBookByTitle(inVO);
 		Book00Response response = toDTO(outList);
 		return response;
 	}
