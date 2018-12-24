@@ -27,11 +27,11 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 	@Override
 	public Book00Response execute(Book00Request request) {
 		Book00Response response = new Book00Response();
-		response = retrieveBookDetails(request);
+		response = searchBookByTitle(request);
 		return response;
 	}
 
-	private Book00Response retrieveBookDetails(Book00Request request) {
+	private Book00Response searchBookByTitle(Book00Request request) {
 		Book00VO inVO = null;
 		inVO = toVO(request);
 		List<Book00VO> outList = iibt.searchBookByTitle(inVO);
