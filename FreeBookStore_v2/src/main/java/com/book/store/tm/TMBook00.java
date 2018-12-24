@@ -26,7 +26,7 @@ public class TMBook00 implements IBaseTM<Book00Request, Book00Response> {
 	private IBasePM<Book00Request, Book00Response> pm = new PMBook00();
 
 	@RequestMapping(value = "/freebookstore/api/v2/search-book-by-title", //
-			method = RequestMethod.GET, //
+			method = RequestMethod.POST, //
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	@ResponseBody
 	public BaseRespone[] execute(@RequestBody Book00Request request) {
