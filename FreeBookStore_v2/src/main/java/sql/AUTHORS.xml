@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery category="AUTHORS">
+
+	<!-- Search author by name -->
+	<select id="s000">
+
+	</select>
+
+	<!-- Search author by id -->
+	<select id="s001">
+
+	</select>
+</dbQuery>
