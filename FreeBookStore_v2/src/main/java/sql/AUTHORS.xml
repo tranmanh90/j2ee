@@ -11,7 +11,7 @@
 			SET @EndRow = @StartRow + @RowsPerPage - 1;
 
 			DECLARE @ParamAuthorName NVARCHAR(50);
-			SET @ParamAuthorName = LTRIM(RTRIM(N?));
+			SET @ParamAuthorName = LTRIM(RTRIM(?));
 			
 			WITH pageinfo AS ( SELECT *, ROW_NUMBER() OVER(ORDER BY AUTHOR_ID ASC) AS ROW_NO, COUNT(*) OVER() AS TOTAL_ROWS 
 			FROM( 
