@@ -2,6 +2,15 @@ package com.book.store.dto;
 
 import com.book.store.BaseRequest;
 
+/**************************************************************
+ * <pre>
+* Search book by id request entity
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 public class Book01Request extends BaseRequest {
 	
 	private int page;

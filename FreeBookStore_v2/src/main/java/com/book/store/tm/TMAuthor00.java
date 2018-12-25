@@ -18,13 +18,30 @@ import com.book.store.IBaseTM;
 import com.book.store.dto.Author00Request;
 import com.book.store.dto.Author00Response;
 import com.book.store.pm.PMAuthor00;
-
+/**************************************************************
+ * <pre>
+* Author transaction main
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 @RestController
 public class TMAuthor00 implements IBaseTM<Author00Request, Author00Response> {
 	private String className = getClass().getName();
 	private Logger logger = LoggerFactory.getLogger(className);
 	private IBasePM<Author00Request, Author00Response> pm = new PMAuthor00();
 
+	
+	/**************************************************************
+	 * <pre>
+	* Search author by name
+	 * </pre>
+	 * 
+	 * @param request data object from client
+	 * @return Author array
+	 *************************************************************/
 	@RequestMapping(value = "/freebookstore/api/v2/search-author-by-name", //
 			method = RequestMethod.POST, //
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })

@@ -2,6 +2,15 @@ package com.book.store.dto;
 
 import com.book.store.BaseRequest;
 
+/**************************************************************
+ * <pre>
+* Search author by name request entity
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 public class Author00Request extends BaseRequest {
 	private int page;
 	private int rowPerPage;

@@ -2,9 +2,15 @@ package com.book.store.vo;
 
 import com.book.store.BaseVO;
 
-// Đây là VO
-// Lưu giữ một đối tượng, đại diện cho domain
-// VO phải khớp với thông tin trong câu truy vấn sql
+/**************************************************************
+ * <pre>
+* Search book by id VO
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 public class Book01VO extends BaseVO {
 	private String bookId;
 	private String bookTitle;

@@ -4,6 +4,15 @@ import java.util.Arrays;
 
 import com.book.store.BaseRespone;
 
+/**************************************************************
+ * <pre>
+* Search author by name response entity
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 public class Author00Response extends BaseRespone {
 	private int page;
 	private int totalRows;

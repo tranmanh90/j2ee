@@ -18,12 +18,29 @@ import com.book.store.dto.Book01Request;
 import com.book.store.dto.Book01Response;
 import com.book.store.vo.Book01VO;
 
+/**************************************************************
+ * <pre>
+* Search book by id process main
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 public class PMBook01 implements IBasePM<Book01Request, Book01Response> {
 
 	private String className = getClass().getName();
 	private Logger logger = LoggerFactory.getLogger(className);
 	private IIBookStore iibt = new IBDBookStore();
 
+	/**************************************************************
+	 * <pre>
+	* Execute action search
+	 * </pre>
+	 * 
+	 * @param request data object from client
+	 * @return Response object
+	 *************************************************************/
 	@Override
 	public Book01Response execute(Book01Request request) {
 		Book01Response response = new Book01Response();

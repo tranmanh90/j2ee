@@ -2,11 +2,15 @@ package com.book.store.dto;
 
 import java.util.Arrays;
 
-// Đây là DTO
-// Là bộ container chứa dữ liệu, để chung chuyển dữ liệu giữa các tầng
-// dto chứa các thuộc tính không chứa business logic, dùng để vận chuyển dữ liệu rất hiệu quả
-// Đóng gói dữ liệu để chung chuyển giữa các tầng
-// dto là dữ liệu muốn gửi đi để hiển thị trên UI,
+/**************************************************************
+ * <pre>
+* Search book by id dto
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 public class Book01Dto {
 	private String bookId;
 	private String bookTitle;

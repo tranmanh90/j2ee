@@ -1,5 +1,14 @@
 package com.book.store.dto;
 
+/**************************************************************
+ * <pre>
+* Search book id with author dto
+ * </pre>
+ * 
+ * @author TRAN VAN MANH
+ * @email tranmanh.vn90@gmail.com
+ * @importance
+ *************************************************************/
 public class Author01Dto {
 	private String authorId;
 	private String authorName;

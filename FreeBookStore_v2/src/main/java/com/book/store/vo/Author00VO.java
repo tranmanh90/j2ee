@@ -4,7 +4,7 @@ import com.book.store.BaseVO;
 
 /**************************************************************
  * <pre>
-* Author VO
+* Search author by name VO
  * </pre>
  * 
  * @author TRAN VAN MANH
