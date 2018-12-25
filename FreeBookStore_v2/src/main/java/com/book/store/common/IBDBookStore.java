@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.book.store.bf.SearchAuthorById;
 import com.book.store.bf.SearchAuthorByName;
+import com.book.store.bf.SearchBookByAuthor;
 import com.book.store.bf.SearchBookById;
 import com.book.store.bf.SearchBookByTitle;
 import com.book.store.vo.Author00VO;
@@ -75,6 +76,22 @@ public class IBDBookStore implements IIBookStore {
 		List<Author00VO> listAuthor = new ArrayList<>();
 		listAuthor = searchAuthorById.execute(vo);
 		return listAuthor;
+	}
+
+	/**************************************************************
+	 * <pre>
+	* Search book by author id
+	 * </pre>
+	 * 
+	 * @param vo request data from client
+	 * @return The searched author
+	 *************************************************************/
+	@Override
+	public List<Book00VO> searchBookByAuthor(Book00VO vo) {
+		SearchBookByAuthor searchBookByAuthor = new SearchBookByAuthor();
+		List<Book00VO> listBooks = new ArrayList<>();
+		listBooks = searchBookByAuthor.execute(vo);
+		return listBooks;
 	}
 
 }

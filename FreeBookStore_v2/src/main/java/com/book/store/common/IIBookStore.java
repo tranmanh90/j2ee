@@ -14,4 +14,6 @@ public interface IIBookStore {
 	public List<Author00VO> searchAuthorByName(Author00VO vo);
 
 	public List<Author00VO> searchAuthorById(Author00VO vo);
+
+	public List<Book00VO> searchBookByAuthor(Book00VO vo);
 }
