@@ -66,4 +66,43 @@ public class Dauthor {
 		};
 		return jdbc.query(loader.getSql(query), pMapper, rMapper);
 	}
+	
+	/**************************************************************
+	 * <pre>
+	* Search author by id
+	 * </pre>
+	 * 
+	 * @param vo request data from client
+	 * @return The searched author
+	 *************************************************************/
+	public List<Author00VO> s001(Author00VO vo) {
+		String methodName = "s001";
+		logger.info(className + ": " + methodName);
+		String query = "AUTHORS.s001";
+
+		Object[] pMapper = new Object[] { vo.getPage(), vo.getRowPerPage(), vo.getAuthorId() };
+
+		RowMapper<Author00VO> rMapper = new RowMapper<Author00VO>() {
+
+			@Override
+			public Author00VO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String tempString = "";
+				Author00VO returnVO = new Author00VO();
+
+				returnVO.setTotalPages(rs.getInt("TOTAL_PAGES"));
+				returnVO.setTotalRows(rs.getInt("TOTAL_ROWS"));
+				returnVO.setPage(rs.getInt("PAGE_INDEX"));
+
+				tempString = rs.getString("AUTHOR_ID");
+				returnVO.setAuthorId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("AUTHOR_NAME");
+				returnVO.setAuthorName(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("AUTHOR_ABOUT");
+				returnVO.setAuthorAbout(tempString == null ? null : tempString.trim());
+
+				return returnVO;
+			}
+		};
+		return jdbc.query(loader.getSql(query), pMapper, rMapper);
+	}
 }
