@@ -11,6 +11,7 @@ import com.book.store.bf.SearchBookByTitle;
 import com.book.store.vo.Author00VO;
 import com.book.store.vo.Book00VO;
 import com.book.store.vo.Book01VO;
+import com.book.store.vo.Book02VO;
 
 public class IBDBookStore implements IIBookStore {
 
@@ -87,9 +88,9 @@ public class IBDBookStore implements IIBookStore {
 	 * @return The searched author
 	 *************************************************************/
 	@Override
-	public List<Book00VO> searchBookByAuthor(Book00VO vo) {
+	public List<Book02VO> searchBookByAuthor(Book02VO vo) {
 		SearchBookByAuthor searchBookByAuthor = new SearchBookByAuthor();
-		List<Book00VO> listBooks = new ArrayList<>();
+		List<Book02VO> listBooks = new ArrayList<>();
 		listBooks = searchBookByAuthor.execute(vo);
 		return listBooks;
 	}

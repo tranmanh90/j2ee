@@ -13,6 +13,7 @@ import com.book.store.config.ConfigDataSource;
 import com.book.store.query.SqlLoader;
 import com.book.store.vo.Book00VO;
 import com.book.store.vo.Book01VO;
+import com.book.store.vo.Book02VO;
 
 /**************************************************************
  * <pre>
@@ -155,17 +156,17 @@ public class Dbook {
 	 * @param vo Request data from client
 	 * @return A book with the corresponding ID
 	 *************************************************************/
-	public List<Book00VO> s002(Book00VO vo) {
+	public List<Book02VO> s002(Book02VO vo) {
 		String methodName = "s002";
 		logger.info(className + ": " + methodName);
 		String query = "BOOKS.s002";
-		Object[] pMapper = new Object[] { vo.getPage(), vo.getRowPerPage(), vo.getBookId() };
+		Object[] pMapper = new Object[] { vo.getPage(), vo.getRowPerPage(), vo.getAuthorId() };
 
-		RowMapper<Book00VO> rMapper = new RowMapper<Book00VO>() {
+		RowMapper<Book02VO> rMapper = new RowMapper<Book02VO>() {
 			@Override
-			public Book00VO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			public Book02VO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				String tempString = "";
-				Book00VO returnVO = new Book00VO();
+				Book02VO returnVO = new Book02VO();
 
 				returnVO.setTotalPages(rs.getInt("TOTAL_PAGES"));
 				returnVO.setTotalRows(rs.getInt("TOTAL_ROWS"));

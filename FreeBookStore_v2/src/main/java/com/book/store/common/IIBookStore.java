@@ -5,6 +5,7 @@ import java.util.List;
 import com.book.store.vo.Author00VO;
 import com.book.store.vo.Book00VO;
 import com.book.store.vo.Book01VO;
+import com.book.store.vo.Book02VO;
 
 public interface IIBookStore {
 	public List<Book00VO> searchBookByTitle(Book00VO vo);
@@ -15,5 +16,5 @@ public interface IIBookStore {
 
 	public List<Author00VO> searchAuthorById(Author00VO vo);
 
-	public List<Book00VO> searchBookByAuthor(Book00VO vo);
+	public List<Book02VO> searchBookByAuthor(Book02VO vo);
 }
