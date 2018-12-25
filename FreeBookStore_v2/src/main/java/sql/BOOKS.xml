@@ -136,4 +136,72 @@
 			FROM pageinfo
 			WHERE ROW_NO BETWEEN @StartRow AND @EndRow
 	</select>
+	
+	<!-- search book by author id -->
+	<select id="s002">
+			DECLARE @PageIndex INT, @RowsPerPage INT, @StartRow INT, @EndRow INT;
+			SET @PageIndex = ?;
+			SET @RowsPerPage = ?;
+			SET @StartRow = ((@PageIndex - 1) * @RowsPerPage) + 1;
+			SET @EndRow = @StartRow + @RowsPerPage - 1;
+
+			DECLARE @ParamAuthorId NVARCHAR(20);
+			SET @ParamAuthorId = LTRIM(RTRIM(?));
+			
+			WITH pageinfo AS ( SELECT *, ROW_NUMBER() OVER(ORDER BY BOOK_ID ASC) AS ROW_NO, COUNT(*) OVER() AS TOTAL_ROWS 
+			FROM( 
+			-- WORKING QUERY
+			SELECT 
+				BD.BOOK_ID, 
+				BD.BOOK_TITLE, 
+				BD.BOOK_DESCRIPTION,
+				BD.BOOK_EDITION,
+				BD.BOOK_FORMAT,
+				BD.BOOK_ISBN,
+				BD.BOOK_PAGE,
+				BD.POST_DATE,
+				BD.AUTHOR_ID,
+				BD.AUTHOR_NAME,
+				BD.AUTHOR_ABOUT,
+				BD.IMAGE_CLOUD,
+				BD.CATEGORY_ID,
+				BD.LINK_URL
+				
+			FROM (
+					SELECT 	BK.BOOK_ID,
+							BK.BOOK_TITLE,
+							BK.BOOK_DESCRIPTION,
+							BK.BOOK_EDITION,
+							BK.BOOK_FORMAT,
+							BK.BOOK_ISBN,
+							BK.BOOK_PAGE,
+							BK.POST_DATE,
+							AU.AUTHOR_ID,
+							AU.AUTHOR_NAME,
+							AU.AUTHOR_ABOUT,
+							CI.IMAGE_ID,
+							CI.IMAGE_CLOUD,
+							CT.CATEGORY_ID,
+							CT.CATEGORY_NAME,
+							DL.LINK_ID,
+							DL.LINK_URL
+							
+					FROM	BOOKS BK,
+							AUTHORS AU,
+							COVER_IMAGES CI,
+							CATEGORIES CT,
+							DOWNLOAD_LINKS DL
+			
+					WHERE	BK.BOOK_ID = (SELECT BA.BOOK_ID FROM BOOK_AUTHOR	BA	WHERE BA.AUTHOR_ID = AU.AUTHOR_ID  AND BA.BOOK_ID = BK.BOOK_ID)
+					AND		BK.BOOK_ID = (SELECT BC.BOOK_ID FROM BOOK_COVER		BC	WHERE BC.IMAGE_ID = CI.IMAGE_ID)
+					AND		BK.BOOK_ID = (SELECT BT.BOOK_ID FROM BOOK_CATEGORY	BT 	WHERE BT.CATEGORY_ID = CT.CATEGORY_ID AND BK.BOOK_ID = BT.BOOK_ID)
+					AND 	BK.BOOK_ID = (SELECT BL.BOOK_ID FROM BOOK_LINK		BL	WHERE BL.LINK_ID = DL.LINK_ID)
+					) BD
+			WHERE BD.AUTHOR_ID = @ParamAuthorId
+			-- WORKING QUERY
+			) AS Src)
+			SELECT *, CEILING(TOTAL_ROWS/ CAST(@RowsPerPage AS DECIMAL(20,2))) AS TOTAL_PAGES, @PageIndex AS PAGE_INDEX
+			FROM pageinfo
+			WHERE ROW_NO BETWEEN @StartRow AND @EndRow
+	</select>
 </dbQuery>
