@@ -3,4 +3,12 @@
 	<select id="searchBookByAuthor">
 		SELECT * FROM BOOKS
 	</select>
+
+	<select id="searchBookByAuthor">
+		SELECT * FROM BOOKS
+	</select>
+
+	<select id="searchBookByAuthor">
+		SELECT * FROM BOOKS
+	</select>
 </dbQuery>
