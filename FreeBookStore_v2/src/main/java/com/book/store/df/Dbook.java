@@ -15,6 +15,7 @@ import com.book.store.vo.Book00VO;
 import com.book.store.vo.Book01VO;
 import com.book.store.vo.Book02VO;
 import com.book.store.vo.Book03VO;
+import com.book.store.vo.Book04VO;
 
 /**************************************************************
  * <pre>
@@ -226,6 +227,64 @@ public class Dbook {
 			public Book03VO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				String tempString = "";
 				Book03VO returnVO = new Book03VO();
+
+				returnVO.setTotalPages(rs.getInt("TOTAL_PAGES"));
+				returnVO.setTotalRows(rs.getInt("TOTAL_ROWS"));
+				returnVO.setPage(rs.getInt("PAGE_INDEX"));
+
+				tempString = rs.getString("BOOK_ID");
+				returnVO.setBookId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("BOOK_TITLE");
+				returnVO.setBookTitle(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("BOOK_DESCRIPTION");
+				returnVO.setBookDescription(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("BOOK_EDITION");
+				returnVO.setBookEdition(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("BOOK_FORMAT");
+				returnVO.setBookFormat(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("BOOK_ISBN");
+				returnVO.setBookIsbn(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("BOOK_PAGE");
+				returnVO.setBookPage(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("POST_DATE");
+				returnVO.setPostDate(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("AUTHOR_ID");
+				returnVO.setAuthorId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("AUTHOR_NAME");
+				returnVO.setAuthorName(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("AUTHOR_ABOUT");
+				returnVO.setAuthorAbout(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("IMAGE_CLOUD");
+				returnVO.setImageCloud(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("CATEGORY_ID");
+				returnVO.setCategoryId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("LINK_URL");
+				returnVO.setLinkUrl(tempString == null ? null : tempString.trim());
+				return returnVO;
+			}
+		};
+		return jdbc.query(loader.getSql(query), pMapper, rMapper);
+	}
+	
+	/**************************************************************
+	 * <pre>
+	* Search book by containing words
+	 * </pre>
+	 * 
+	 * @param vo request data from client
+	 * @return A list of searched books
+	 *************************************************************/
+	public List<Book04VO> s004(Book04VO vo) {
+		String methodName = "s004";
+		logger.info(className + ": " + methodName);
+		String query = "BOOKS.s004";
+		Object[] pMapper = new Object[] { vo.getPage(), vo.getRowPerPage(), vo.getBookTitle(), vo.getBookDescription() };
+
+		RowMapper<Book04VO> rMapper = new RowMapper<Book04VO>() {
+			@Override
+			public Book04VO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String tempString = "";
+				Book04VO returnVO = new Book04VO();
 
 				returnVO.setTotalPages(rs.getInt("TOTAL_PAGES"));
 				returnVO.setTotalRows(rs.getInt("TOTAL_ROWS"));
