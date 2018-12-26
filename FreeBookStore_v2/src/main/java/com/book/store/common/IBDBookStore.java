@@ -7,6 +7,7 @@ import com.book.store.bf.SearchAuthorById;
 import com.book.store.bf.SearchAuthorByName;
 import com.book.store.bf.SearchBookByAuthor;
 import com.book.store.bf.SearchBookByCategory;
+import com.book.store.bf.SearchBookByContainingWords;
 import com.book.store.bf.SearchBookById;
 import com.book.store.bf.SearchBookByTitle;
 import com.book.store.vo.Author00VO;
@@ -14,6 +15,7 @@ import com.book.store.vo.Book00VO;
 import com.book.store.vo.Book01VO;
 import com.book.store.vo.Book02VO;
 import com.book.store.vo.Book03VO;
+import com.book.store.vo.Book04VO;
 
 public class IBDBookStore implements IIBookStore {
 
@@ -110,6 +112,22 @@ public class IBDBookStore implements IIBookStore {
 		SearchBookByCategory searchBookByCategory = new SearchBookByCategory();
 		List<Book03VO> listBooks = new ArrayList<>();
 		listBooks = searchBookByCategory.execute(vo);
+		return listBooks;
+	}
+
+	/**************************************************************
+	 * <pre>
+	* Search book by containing words
+	 * </pre>
+	 * 
+	 * @param vo request data from client
+	 * @return List of searched book
+	 *************************************************************/
+	@Override
+	public List<Book04VO> searchBookByContainingWords(Book04VO vo) {
+		SearchBookByContainingWords searchBookByContainingWords = new SearchBookByContainingWords();
+		List<Book04VO> listBooks = new ArrayList<>();
+		listBooks = searchBookByContainingWords.execute(vo);
 		return listBooks;
 	}
 
