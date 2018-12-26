@@ -281,8 +281,11 @@
 			SET @StartRow = ((@PageIndex - 1) * @RowsPerPage) + 1;
 			SET @EndRow = @StartRow + @RowsPerPage - 1;
 
-			DECLARE @ContainingWords NVARCHAR(200);
-			SET @ContainingWords = LTRIM(RTRIM(?));
+			DECLARE @BookTitleParam NVARCHAR(200);
+			SET @BookTitleParam = LTRIM(RTRIM(?));
+			
+			DECLARE @BookDesParam NVARCHAR(200);
+			SET @BookDesParam = LTRIM(RTRIM(?));
 			
 			WITH pageinfo AS ( SELECT *, ROW_NUMBER() OVER(ORDER BY BOOK_ID ASC) AS ROW_NO, COUNT(*) OVER() AS TOTAL_ROWS 
 			FROM( 
@@ -333,8 +336,8 @@
 					AND		BK.BOOK_ID = (SELECT BT.BOOK_ID FROM BOOK_CATEGORY	BT 	WHERE BT.CATEGORY_ID = CT.CATEGORY_ID AND BK.BOOK_ID = BT.BOOK_ID)
 					AND 	BK.BOOK_ID = (SELECT BL.BOOK_ID FROM BOOK_LINK		BL	WHERE BL.LINK_ID = DL.LINK_ID)
 					) BD
-			WHERE (BD.BOOK_TITLE LIKE '%' + @ContainingWords + '%')
-			OR (BD.BOOK_DESCRIPTION LIKE '%' + @ContainingWords + '%')
+			WHERE (BD.BOOK_TITLE LIKE '%' + @BookTitleParam + '%')
+			OR (BD.BOOK_DESCRIPTION LIKE '%' + @BookDesParam + '%')
 			-- WORKING QUERY
 			) AS Src)
 			SELECT *, CEILING(TOTAL_ROWS/ CAST(@RowsPerPage AS DECIMAL(20,2))) AS TOTAL_PAGES, @PageIndex AS PAGE_INDEX
