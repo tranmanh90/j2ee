@@ -1,14 +1,14 @@
 package com.training.spring.tm;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@RestController
+@Controller
 public class TMWelcome {
-	@RequestMapping("/")
-	@ResponseBody
-	public String welcome() {
-		return "Welcome to Spring Boot and ReactJS";
+	@RequestMapping(value = "/haha", method = RequestMethod.GET)
+	public String welcome(Model model) {
+		return "index";
 	}
 }
