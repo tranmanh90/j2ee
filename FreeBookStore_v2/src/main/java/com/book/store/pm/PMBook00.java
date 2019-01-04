@@ -16,6 +16,7 @@ import com.book.store.dto.Author00Dto;
 import com.book.store.dto.Book00Dto;
 import com.book.store.dto.Book00Request;
 import com.book.store.dto.Book00Response;
+import com.book.store.dto.Category00Dto;
 import com.book.store.vo.Book00VO;
 
 /**************************************************************
@@ -72,6 +73,7 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 		List<Author00Dto> listAuthors = null;
 		Book00Dto row = null;
 		Author00Dto author = null;
+		Category00Dto category = null;
 		String key;
 		int value;
 
@@ -104,6 +106,7 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 				listAuthors = new ArrayList<>();
 				for (int i = 0; i < inVO.size(); i++) {
 					if (inVO.get(i).getBookId().equals(key)) {
+						category = new Category00Dto();
 						author = new Author00Dto();
 						row.setBookId(key);
 						row.setBookTitle(inVO.get(i).getBookTitle());
@@ -113,14 +116,18 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 						row.setBookEdition(inVO.get(i).getBookEdition());
 						row.setBookIsbn(inVO.get(i).getBookIsbn());
 						row.setPostDate(inVO.get(i).getPostDate());
+						// Author
 						author.setAuthorId(inVO.get(i).getAuthorId());
 						author.setAuthorName(inVO.get(i).getAuthorName());
 						author.setAuthorAbout(inVO.get(i).getAuthorAbout());
+						
 						row.setImageCloud(inVO.get(i).getImageCloud());
-						row.setCategoryId(inVO.get(i).getCategoryId());
+						// Category
+						category.setCategoryId(inVO.get(i).getCategoryId());
+						category.setCategoryName(inVO.get(i).getCategoryName());
+						row.setCategory(category);
 						row.setLinkUrl(inVO.get(i).getLinkUrl());
 						listAuthors.add(author);
-
 					}
 				}
 				row.setAuthors(listAuthors.toArray(new Author00Dto[listAuthors.size()]));
@@ -129,6 +136,7 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 				listAuthors = new ArrayList<>();
 				for (int i = 0; i < inVO.size(); i++) {
 					if (inVO.get(i).getBookId().equals(key)) {
+						category = new Category00Dto();
 						author = new Author00Dto();
 						row.setBookId(key);
 						row.setBookTitle(inVO.get(i).getBookTitle());
@@ -138,11 +146,16 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 						row.setBookEdition(inVO.get(i).getBookEdition());
 						row.setBookIsbn(inVO.get(i).getBookIsbn());
 						row.setPostDate(inVO.get(i).getPostDate());
+						// Author
 						author.setAuthorId(inVO.get(i).getAuthorId());
 						author.setAuthorName(inVO.get(i).getAuthorName());
 						author.setAuthorAbout(inVO.get(i).getAuthorAbout());
+						
 						row.setImageCloud(inVO.get(i).getImageCloud());
-						row.setCategoryId(inVO.get(i).getCategoryId());
+						// Category
+						category.setCategoryId(inVO.get(i).getCategoryId());
+						category.setCategoryName(inVO.get(i).getCategoryName());
+						row.setCategory(category);
 						row.setLinkUrl(inVO.get(i).getLinkUrl());
 						listAuthors.add(author);
 					}

@@ -22,7 +22,7 @@ public class Book01Dto {
 	private String postDate;
 	private Author01Dto[] authors;
 	private String imageCloud;
-	private String categoryId;
+	private Category00Dto category;
 	private String linkUrl;
 
 	public String getBookId() {
@@ -105,12 +105,12 @@ public class Book01Dto {
 		this.imageCloud = imageCloud;
 	}
 
-	public String getCategoryId() {
-		return categoryId;
+	public Category00Dto getCategory() {
+		return category;
 	}
 
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setCategory(Category00Dto category) {
+		this.category = category;
 	}
 
 	public String getLinkUrl() {
@@ -144,8 +144,8 @@ public class Book01Dto {
 		builder.append(Arrays.toString(authors));
 		builder.append(", imageCloud=");
 		builder.append(imageCloud);
-		builder.append(", categoryId=");
-		builder.append(categoryId);
+		builder.append(", category=");
+		builder.append(category);
 		builder.append(", linkUrl=");
 		builder.append(linkUrl);
 		builder.append("]");

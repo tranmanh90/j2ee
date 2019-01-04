@@ -25,6 +25,7 @@ public class Book00VO extends BaseVO {
 	private String authorAbout;
 	private String imageCloud;
 	private String categoryId;
+	private String categoryName;
 	private String linkUrl;
 
 	public String getBookId() {
@@ -131,6 +132,14 @@ public class Book00VO extends BaseVO {
 		this.categoryId = categoryId;
 	}
 
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	public String getLinkUrl() {
 		return linkUrl;
 	}
@@ -168,6 +177,8 @@ public class Book00VO extends BaseVO {
 		builder.append(imageCloud);
 		builder.append(", categoryId=");
 		builder.append(categoryId);
+		builder.append(", categoryName=");
+		builder.append(categoryName);
 		builder.append(", linkUrl=");
 		builder.append(linkUrl);
 		builder.append("]");

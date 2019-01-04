@@ -84,6 +84,8 @@ public class Dbook {
 				returnVO.setImageCloud(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("CATEGORY_ID");
 				returnVO.setCategoryId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("CATEGORY_NAME");
+				returnVO.setCategoryName(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("LINK_URL");
 				returnVO.setLinkUrl(tempString == null ? null : tempString.trim());
 				return returnVO;
@@ -142,6 +144,8 @@ public class Dbook {
 				returnVO.setImageCloud(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("CATEGORY_ID");
 				returnVO.setCategoryId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("CATEGORY_NAME");
+				returnVO.setCategoryName(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("LINK_URL");
 				returnVO.setLinkUrl(tempString == null ? null : tempString.trim());
 				return returnVO;
@@ -200,6 +204,8 @@ public class Dbook {
 				returnVO.setImageCloud(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("CATEGORY_ID");
 				returnVO.setCategoryId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("CATEGORY_NAME");
+				returnVO.setCategoryName(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("LINK_URL");
 				returnVO.setLinkUrl(tempString == null ? null : tempString.trim());
 				return returnVO;
@@ -258,6 +264,8 @@ public class Dbook {
 				returnVO.setImageCloud(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("CATEGORY_ID");
 				returnVO.setCategoryId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("CATEGORY_NAME");
+				returnVO.setCategoryName(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("LINK_URL");
 				returnVO.setLinkUrl(tempString == null ? null : tempString.trim());
 				return returnVO;
@@ -316,6 +324,8 @@ public class Dbook {
 				returnVO.setImageCloud(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("CATEGORY_ID");
 				returnVO.setCategoryId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("CATEGORY_NAME");
+				returnVO.setCategoryName(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("LINK_URL");
 				returnVO.setLinkUrl(tempString == null ? null : tempString.trim());
 				return returnVO;
