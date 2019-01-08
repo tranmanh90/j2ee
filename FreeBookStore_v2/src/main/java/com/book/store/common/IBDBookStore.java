@@ -3,6 +3,7 @@ package com.book.store.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.book.store.bf.RegisterAuthor;
 import com.book.store.bf.SearchAuthorById;
 import com.book.store.bf.SearchAuthorByName;
 import com.book.store.bf.SearchBookByAuthor;
@@ -129,6 +130,12 @@ public class IBDBookStore implements IIBookStore {
 		List<Book04VO> listBooks = new ArrayList<>();
 		listBooks = searchBookByContainingWords.execute(vo);
 		return listBooks;
+	}
+
+	@Override
+	public int registerAuthor(Author00VO vo) {
+		RegisterAuthor registerAuthor = new RegisterAuthor(); 
+		return registerAuthor.execute(vo);
 	}
 
 }

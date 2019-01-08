@@ -105,4 +105,23 @@ public class Dauthor {
 		};
 		return jdbc.query(loader.getSql(query), pMapper, rMapper);
 	}
+	
+	/**************************************************************
+	 * <pre>
+	* Insert author data
+	 * </pre>
+	 * 
+	 * @param vo request data from client
+	 * @return The searched author
+	 *************************************************************/
+	public int i000(Author00VO vo) {
+		String methodName = "i000";
+		logger.info(className + ": " + methodName);
+		String query = "AUTHORS.i000";
+		logger.info("Author00VO  ------ " + vo.toString());
+		logger.info("Author00VO getAuthorName------ " + vo.getAuthorName());
+		Object[] pMapper = new Object[] { vo.getAuthorId(), vo.getAuthorName(), vo.getAuthorAbout() };
+
+		return jdbc.update(loader.getSql(query), pMapper);
+	}
 }

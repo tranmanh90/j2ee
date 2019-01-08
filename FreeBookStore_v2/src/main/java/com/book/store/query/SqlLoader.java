@@ -9,6 +9,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 public class SqlLoader {
 
 	private static SqlLoader instance = null;
@@ -71,7 +73,7 @@ public class SqlLoader {
 		if (dbQuery != null) {
 			boolean found = dbQuery.getInsertSql().stream().anyMatch(p -> p.getInsertId().equals(queryId));
 			if (found) {
-				for (int i = 0; i < dbQuery.getSelectSql().size(); i++) {
+				for (int i = 0; i < dbQuery.getInsertSql().size(); i++) {
 					map.put(dbQuery.getInsertSql().get(i).getInsertId(), dbQuery.getInsertSql().get(i).getInsertSql());
 				}
 			}

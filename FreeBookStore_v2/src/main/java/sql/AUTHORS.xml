@@ -53,4 +53,19 @@
 			FROM pageinfo
 			WHERE ROW_NO BETWEEN @StartRow AND @EndRow
 	</select>
+	
+	<insert id="i000">
+			DECLARE @AUTHOR_ID NVARCHAR(20), @AUTHOR_NAME NVARCHAR(20), @AUTHOR_ABOUT NVARCHAR(20);
+			SET @AUTHOR_ID = ?;
+			SET @AUTHOR_NAME = ?;
+			SET @AUTHOR_ABOUT = ?;
+			INSERT INTO [AUTHORS]
+           		([AUTHOR_ID]
+           		,[AUTHOR_NAME]
+           		,[AUTHOR_ABOUT])
+    		 VALUES
+           		(@AUTHOR_ID
+          		 ,@AUTHOR_NAME
+           		,@AUTHOR_ABOUT)
+	</insert>
 </dbQuery>
