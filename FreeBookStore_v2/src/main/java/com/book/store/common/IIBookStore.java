@@ -8,6 +8,7 @@ import com.book.store.vo.Book01VO;
 import com.book.store.vo.Book02VO;
 import com.book.store.vo.Book03VO;
 import com.book.store.vo.Book04VO;
+import com.book.store.vo.Category00VO;
 
 public interface IIBookStore {
 	public List<Book00VO> searchBookByTitle(Book00VO vo);
@@ -24,6 +25,10 @@ public interface IIBookStore {
 
 	public List<Author00VO> searchAuthorById(Author00VO vo);
 	
+	public List<Author00VO> searchAuthorByBookId(Book00VO vo);
+	
 	public int registerAuthor(Author00VO vo);
+	
+	public List<Category00VO> searchCategoryById(Category00VO vo);
 
 }

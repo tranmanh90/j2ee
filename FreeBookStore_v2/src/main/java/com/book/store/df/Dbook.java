@@ -74,12 +74,6 @@ public class Dbook {
 				returnVO.setBookPage(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("POST_DATE");
 				returnVO.setPostDate(tempString == null ? null : tempString.trim());
-				tempString = rs.getString("AUTHOR_ID");
-				returnVO.setAuthorId(tempString == null ? null : tempString.trim());
-				tempString = rs.getString("AUTHOR_NAME");
-				returnVO.setAuthorName(tempString == null ? null : tempString.trim());
-				tempString = rs.getString("AUTHOR_ABOUT");
-				returnVO.setAuthorAbout(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("IMAGE_CLOUD");
 				returnVO.setImageCloud(tempString == null ? null : tempString.trim());
 				tempString = rs.getString("CATEGORY_ID");

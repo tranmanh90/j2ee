@@ -6,17 +6,20 @@ import java.util.List;
 import com.book.store.bf.RegisterAuthor;
 import com.book.store.bf.SearchAuthorById;
 import com.book.store.bf.SearchAuthorByName;
+import com.book.store.bf.SearchAuthorListByBookId;
 import com.book.store.bf.SearchBookByAuthor;
 import com.book.store.bf.SearchBookByCategory;
 import com.book.store.bf.SearchBookByContainingWords;
 import com.book.store.bf.SearchBookById;
 import com.book.store.bf.SearchBookByTitle;
+import com.book.store.bf.SearchCategoryById;
 import com.book.store.vo.Author00VO;
 import com.book.store.vo.Book00VO;
 import com.book.store.vo.Book01VO;
 import com.book.store.vo.Book02VO;
 import com.book.store.vo.Book03VO;
 import com.book.store.vo.Book04VO;
+import com.book.store.vo.Category00VO;
 
 public class IBDBookStore implements IIBookStore {
 
@@ -136,6 +139,28 @@ public class IBDBookStore implements IIBookStore {
 	public int registerAuthor(Author00VO vo) {
 		RegisterAuthor registerAuthor = new RegisterAuthor(); 
 		return registerAuthor.execute(vo);
+	}
+
+	@Override
+	public List<Category00VO> searchCategoryById(Category00VO vo) {
+		SearchCategoryById searchCategoryById = new SearchCategoryById();
+		return searchCategoryById.execute(vo);
+	}
+
+	/**************************************************************
+	 * <pre>
+	* Search author by book ID
+	 * </pre>
+	 * 
+	 * @param vo request data from client
+	 * @return List of searched book
+	 *************************************************************/
+	@Override
+	public List<Author00VO> searchAuthorByBookId(Book00VO vo) {
+		SearchAuthorListByBookId searchAuthorListByBookId = new SearchAuthorListByBookId();
+		List<Author00VO> listAuthors = new ArrayList<>();
+		listAuthors = searchAuthorListByBookId.execute(vo);
+		return listAuthors;
 	}
 
 }

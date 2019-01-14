@@ -3,11 +3,12 @@ package com.book.store.bf;
 import java.util.List;
 
 import com.book.store.df.Dauthor;
+import com.book.store.df.Dcategory;
 import com.book.store.vo.Author00VO;
+import com.book.store.vo.Category00VO;
 
-public class RegisterAuthor {
-
-	private Dauthor df = null;
+public class SearchCategoryById {
+	private Dcategory df = null;
 
 	/**************************************************************
 	 * <pre>
@@ -17,14 +18,13 @@ public class RegisterAuthor {
 	 * @param register author to DB
 	 * @return int 0: success, 1: error
 	 *************************************************************/
-	public int execute(Author00VO vo) {
+	public List<Category00VO> execute(Category00VO vo) {
 
 		if (df == null) {
-			df = new Dauthor();
+			df = new Dcategory();
 		}
 
-		df.i000(vo);
-		return 0;
+		return df.s000(vo);
 
 	}
 }

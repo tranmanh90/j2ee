@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.book.store.config.ConfigDataSource;
 import com.book.store.query.SqlLoader;
 import com.book.store.vo.Author00VO;
+import com.book.store.vo.Book00VO;
 
 /**************************************************************
  * <pre>
@@ -66,7 +67,7 @@ public class Dauthor {
 		};
 		return jdbc.query(loader.getSql(query), pMapper, rMapper);
 	}
-	
+
 	/**************************************************************
 	 * <pre>
 	* Search author by id
@@ -105,7 +106,46 @@ public class Dauthor {
 		};
 		return jdbc.query(loader.getSql(query), pMapper, rMapper);
 	}
-	
+
+	/**************************************************************
+	 * <pre>
+	* Search author by id
+	 * </pre>
+	 * 
+	 * @param vo request data from client
+	 * @return The searched author
+	 *************************************************************/
+	public List<Author00VO> s002(Book00VO vo) {
+		String methodName = "s002";
+		logger.info(className + ": " + methodName);
+		String query = "AUTHORS.s002";
+
+		Object[] pMapper = new Object[] { vo.getBookId() };
+
+		RowMapper<Author00VO> rMapper = new RowMapper<Author00VO>() {
+
+			@Override
+			public Author00VO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String tempString = "";
+				Author00VO returnVO = new Author00VO();
+
+//				returnVO.setTotalPages(rs.getInt("TOTAL_PAGES"));
+//				returnVO.setTotalRows(rs.getInt("TOTAL_ROWS"));
+//				returnVO.setPage(rs.getInt("PAGE_INDEX"));
+
+				tempString = rs.getString("AUTHOR_ID");
+				returnVO.setAuthorId(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("AUTHOR_NAME");
+				returnVO.setAuthorName(tempString == null ? null : tempString.trim());
+				tempString = rs.getString("AUTHOR_ABOUT");
+				returnVO.setAuthorAbout(tempString == null ? null : tempString.trim());
+
+				return returnVO;
+			}
+		};
+		return jdbc.query(loader.getSql(query), pMapper, rMapper);
+	}
+
 	/**************************************************************
 	 * <pre>
 	* Insert author data

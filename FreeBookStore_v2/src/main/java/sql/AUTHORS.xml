@@ -54,6 +54,20 @@
 			WHERE ROW_NO BETWEEN @StartRow AND @EndRow
 	</select>
 	
+	<select id="s002">
+			DECLARE @ParamBookId NVARCHAR(50);
+			SET @ParamBookId = LTRIM(RTRIM(?));
+					
+			SELECT 	AU.AUTHOR_ID,
+					AU.AUTHOR_NAME,
+					AU.AUTHOR_ABOUT
+
+			FROM	AUTHORS AU,
+					BOOK_AUTHOR BA
+			WHERE BA.BOOK_ID = @ParamBookId
+			AND BA.AUTHOR_ID = AU.AUTHOR_ID
+	</select>
+	
 	<insert id="i000">
 			DECLARE @AUTHOR_ID NVARCHAR(20), @AUTHOR_NAME NVARCHAR(20), @AUTHOR_ABOUT NVARCHAR(20);
 			SET @AUTHOR_ID = ?;

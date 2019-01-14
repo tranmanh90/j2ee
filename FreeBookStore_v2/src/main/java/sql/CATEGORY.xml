@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dbQuery category="CATEGORY">
+
+	<!-- Search author by name -->
+	<select id="r000">
+			DECLARE @PageIndex INT, @RowsPerPage INT, @StartRow INT, @EndRow INT;
+			SET @PageIndex = ?;
+			SET @RowsPerPage = ?;
+			SET @StartRow = ((@PageIndex - 1) * @RowsPerPage) + 1;
+			SET @EndRow = @StartRow + @RowsPerPage - 1;
+
+			DECLARE @ParamCategoryName NVARCHAR(50);
+			SET @ParamCategoryName = LTRIM(RTRIM(?));
+			
+			WITH pageinfo AS ( SELECT *, ROW_NUMBER() OVER(ORDER BY AUTHOR_ID ASC) AS ROW_NO, COUNT(*) OVER() AS TOTAL_ROWS 
+			FROM( 
+			-- WORKING QUERY
+			SELECT	CA.CATEGORY_ID,
+					CA.CATEGORY_NAME
+			FROM	CATEGORIES CA
+			WHERE	CA.CATEGORY_NAME  LIKE '%' + @ParamCategoryName + '%'
+			-- WORKING QUERY
+			) AS Src)
+			SELECT *, CEILING(TOTAL_ROWS/ CAST(@RowsPerPage AS DECIMAL(20,2))) AS TOTAL_PAGES, @PageIndex AS PAGE_INDEX
+			FROM pageinfo
+			WHERE ROW_NO BETWEEN @StartRow AND @EndRow
+	</select>
+	
+	<select id="s000">
+			DECLARE @IN_CATEGORY_ID NVARCHAR(50);
+			SET @IN_CATEGORY_ID = LTRIM(RTRIM(?));
+			
+			SELECT	CA.CATEGORY_ID,
+					CA.CATEGORY_NAME
+			FROM	CATEGORIES CA
+			WHERE	CA.CATEGORY_ID  = @IN_CATEGORY_ID
+	</select>
+	
+	<insert id="i000">
+			DECLARE @IN_CATEGORY_ID NVARCHAR(20), @IN_CATEGORY_NAME NVARCHAR(20);
+			SET @IN_CATEGORY_ID = ?;
+			SET @IN_CATEGORY_NAME = ?;
+			INSERT INTO [CATEGORIES]
+           		([CATEGORY_ID]
+           		,[CATEGORY_NAME]
+    		 VALUES
+           		(@IN_CATEGORY_ID
+          		 ,@IN_CATEGORY_NAME)
+	</insert>
+</dbQuery>

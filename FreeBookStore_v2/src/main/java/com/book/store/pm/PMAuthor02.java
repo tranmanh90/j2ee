@@ -34,11 +34,11 @@ public class PMAuthor02 implements IBasePM<Author02Request, Author02Response>{
 	@Override
 	public Author02Response execute(Author02Request request) {
 		Author02Response response = new Author02Response();
-		response = searchAuthorById(request);
+		response = registerAuthor(request);
 		return response;
 	}
 
-	private Author02Response searchAuthorById(Author02Request request) {
+	private Author02Response registerAuthor(Author02Request request) {
 		Author00VO inVO = null;
 		inVO = toVO(request);
 		int result = iibt.registerAuthor(inVO);

@@ -17,7 +17,9 @@ import com.book.store.dto.Book00Dto;
 import com.book.store.dto.Book00Request;
 import com.book.store.dto.Book00Response;
 import com.book.store.dto.Category00Dto;
+import com.book.store.vo.Author00VO;
 import com.book.store.vo.Book00VO;
+import com.book.store.vo.BookAuthor00VO;
 
 /**************************************************************
  * <pre>
@@ -53,6 +55,7 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 		Book00VO inVO = null;
 		inVO = toVO(request);
 		List<Book00VO> outList = iibt.searchBookByTitle(inVO);
+		logger.info("=============> " + outList.toString());
 		Book00Response response = toDTO(outList);
 		return response;
 	}
@@ -65,21 +68,30 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 		return vo;
 	}
 
+	private List<Author00Dto> toAuthorDTO(List<Author00VO> inVO) {
+		List<Author00Dto> dto = new ArrayList<>();
+		Author00Dto row = null;
+		for (Author00VO vo : inVO) {
+			row = new Author00Dto();
+			row.setAuthorId(vo.getAuthorId());
+			row.setAuthorName(vo.getAuthorName());
+			row.setAuthorAbout(vo.getAuthorAbout());
+
+			dto.add(row);
+		}
+		return dto;
+	}
+
 	private Book00Response toDTO(List<Book00VO> inVO) {
-		logger.info("toDTO: " + inVO.toString());
 		Book00Response response = new Book00Response();
 		List<Book00Dto> listBooks = new ArrayList<>();
-		Map<String, Integer> mapBookId = new HashMap<String, Integer>();
 		List<Author00Dto> listAuthors = null;
 		Book00Dto row = null;
-		Author00Dto author = null;
 		Category00Dto category = null;
-		String key;
-		int value;
 
 		if (inVO.size() > 0) {
 			response.setTotalPages(inVO.get(0).getTotalPages());
-//			response.setTotalRows(inVO.get(0).getTotalRows());
+			response.setTotalRows(inVO.get(0).getTotalRows());
 			response.setPage(inVO.get(0).getPage());
 			response.setRspCd(BookConstant.TRN_SUCC);
 			response.setRspMsg(BookConstant.TRN_MSG_SUCC);
@@ -91,97 +103,32 @@ public class PMBook00 implements IBasePM<Book00Request, Book00Response> {
 			response.setRspMsg(BookConstant.TRN_MSG_NOTF);
 		}
 
-		for (Book00VO vo : inVO) {
-			Integer cnt = mapBookId.get(vo.getBookId());
-			mapBookId.put(vo.getBookId(), (cnt == null) ? 1 : ++cnt);
-		}
-
-		for (Map.Entry<String, Integer> entry : mapBookId.entrySet()) {
+		for (int i = 0; i < inVO.size(); i++) {
 			row = new Book00Dto();
-			key = entry.getKey();
-			value = entry.getValue();
-			response.setTotalRows(inVO.get(0).getTotalRows() - value + 1);
+			category = new Category00Dto();
+			row.setBookId(inVO.get(i).getBookId());
+			row.setBookTitle(inVO.get(i).getBookTitle());
+			row.setBookDescription(inVO.get(i).getBookEdition());
+			row.setBookPage(inVO.get(i).getBookPage());
+			row.setBookFormat(inVO.get(i).getBookFormat());
+			row.setBookEdition(inVO.get(i).getBookEdition());
+			row.setBookIsbn(inVO.get(i).getBookIsbn());
+			row.setPostDate(inVO.get(i).getPostDate());
 
-			if (value >= 2) {
-				listAuthors = new ArrayList<>();
-				for (int i = 0; i < inVO.size(); i++) {
-					if (inVO.get(i).getBookId().equals(key)) {
-						category = new Category00Dto();
-						author = new Author00Dto();
-						row.setBookId(key);
-						row.setBookTitle(inVO.get(i).getBookTitle());
-						row.setBookDescription(inVO.get(i).getBookDescription());
-						row.setBookPage(inVO.get(i).getBookPage());
-						row.setBookFormat(inVO.get(i).getBookFormat());
-						row.setBookEdition(inVO.get(i).getBookEdition());
-						row.setBookIsbn(inVO.get(i).getBookIsbn());
-						row.setPostDate(inVO.get(i).getPostDate());
-						// Author
-						author.setAuthorId(inVO.get(i).getAuthorId());
-						author.setAuthorName(inVO.get(i).getAuthorName());
-						author.setAuthorAbout(inVO.get(i).getAuthorAbout());
-						
-						row.setImageCloud(inVO.get(i).getImageCloud());
-						// Category
-						category.setCategoryId(inVO.get(i).getCategoryId());
-						category.setCategoryName(inVO.get(i).getCategoryName());
-						row.setCategory(category);
-						row.setLinkUrl(inVO.get(i).getLinkUrl());
-						listAuthors.add(author);
-					}
-				}
-				row.setAuthors(listAuthors.toArray(new Author00Dto[listAuthors.size()]));
-				listBooks.add(row);
-			} else {
-				listAuthors = new ArrayList<>();
-				for (int i = 0; i < inVO.size(); i++) {
-					if (inVO.get(i).getBookId().equals(key)) {
-						category = new Category00Dto();
-						author = new Author00Dto();
-						row.setBookId(key);
-						row.setBookTitle(inVO.get(i).getBookTitle());
-						row.setBookDescription(inVO.get(i).getBookDescription());
-						row.setBookPage(inVO.get(i).getBookPage());
-						row.setBookFormat(inVO.get(i).getBookFormat());
-						row.setBookEdition(inVO.get(i).getBookEdition());
-						row.setBookIsbn(inVO.get(i).getBookIsbn());
-						row.setPostDate(inVO.get(i).getPostDate());
-						// Author
-						author.setAuthorId(inVO.get(i).getAuthorId());
-						author.setAuthorName(inVO.get(i).getAuthorName());
-						author.setAuthorAbout(inVO.get(i).getAuthorAbout());
-						
-						row.setImageCloud(inVO.get(i).getImageCloud());
-						// Category
-						category.setCategoryId(inVO.get(i).getCategoryId());
-						category.setCategoryName(inVO.get(i).getCategoryName());
-						row.setCategory(category);
-						row.setLinkUrl(inVO.get(i).getLinkUrl());
-						listAuthors.add(author);
-					}
-				}
-				row.setAuthors(listAuthors.toArray(new Author00Dto[listAuthors.size()]));
-				listBooks.add(row);
-			}
+			// author
+			listAuthors = toAuthorDTO(iibt.searchAuthorByBookId(inVO.get(i)));
+			row.setAuthors(listAuthors.toArray(new Author00Dto[listAuthors.size()]));
+
+			// category
+			category.setCategoryId(inVO.get(i).getCategoryId());
+			category.setCategoryName(inVO.get(i).getCategoryName());
+			row.setCategory(category);
+			
+			row.setImageCloud(inVO.get(i).getImageCloud());
+			row.setLinkUrl(inVO.get(i).getLinkUrl());
+
+			listBooks.add(row);
 		}
-
-//		for (Book00VO vo : inVO) {
-//			row = new Book00Dto();
-//			row.setBookId(vo.getBookId());
-//			row.setBookTitle(vo.getBookTitle());
-//			row.setBookDescription(vo.getBookEdition());
-//			row.setBookPage(vo.getBookPage());
-//			row.setBookFormat(vo.getBookFormat());
-//			row.setBookEdition(vo.getBookEdition());
-//			row.setBookIsbn(vo.getBookIsbn());
-//			row.setPostDate(vo.getPostDate());
-//			
-//			row.setImageCloud(vo.getImageCloud());
-//			row.setCategoryId(vo.getCategoryId());
-//			row.setLinkUrl(vo.getLinkUrl());
-//
-//			listBooks.add(row);
-//		}
 
 		Book00Dto[] arrGrd = listBooks.toArray(new Book00Dto[listBooks.size()]);
 		response.setListBooks(arrGrd);
