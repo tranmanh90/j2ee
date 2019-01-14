@@ -141,12 +141,6 @@ public class IBDBookStore implements IIBookStore {
 		return registerAuthor.execute(vo);
 	}
 
-	@Override
-	public List<Category00VO> searchCategoryById(Category00VO vo) {
-		SearchCategoryById searchCategoryById = new SearchCategoryById();
-		return searchCategoryById.execute(vo);
-	}
-
 	/**************************************************************
 	 * <pre>
 	* Search author by book ID
@@ -161,6 +155,12 @@ public class IBDBookStore implements IIBookStore {
 		List<Author00VO> listAuthors = new ArrayList<>();
 		listAuthors = searchAuthorListByBookId.execute(vo);
 		return listAuthors;
+	}
+
+	@Override
+	public List<Category00VO> searchCategoryById(Category00VO vo) {
+		SearchCategoryById searchCategoryById = new SearchCategoryById();
+		return searchCategoryById.execute(vo);
 	}
 
 }
