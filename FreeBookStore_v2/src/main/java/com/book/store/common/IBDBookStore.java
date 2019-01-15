@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.book.store.bf.RegisterAuthor;
+import com.book.store.bf.RegisterCategory;
 import com.book.store.bf.SearchAuthorById;
 import com.book.store.bf.SearchAuthorByName;
 import com.book.store.bf.SearchAuthorListByBookId;
@@ -161,6 +162,12 @@ public class IBDBookStore implements IIBookStore {
 	public List<Category00VO> searchCategoryById(Category00VO vo) {
 		SearchCategoryById searchCategoryById = new SearchCategoryById();
 		return searchCategoryById.execute(vo);
+	}
+
+	@Override
+	public int registerCategory(Category00VO vo) {
+		RegisterCategory registerCategory = new RegisterCategory();
+		return registerCategory.execute(vo);
 	}
 
 }

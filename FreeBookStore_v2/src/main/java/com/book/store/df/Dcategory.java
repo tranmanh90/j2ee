@@ -53,4 +53,15 @@ public class Dcategory {
 		};
 		return jdbc.query(loader.getSql(query), pMapper, rMapper);
 	}
+	
+	public int i000(Category00VO vo) {
+		String methodName = "i000";
+		logger.info(className + ": " + methodName);
+		String query = "CATEGORY.i000";
+
+		Object[] pMapper = new Object[] { vo.getCategoryId(), vo.getCategoryName() };
+
+		
+		return jdbc.update(loader.getSql(query), pMapper);
+	}
 }

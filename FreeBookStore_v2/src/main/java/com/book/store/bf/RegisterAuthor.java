@@ -22,9 +22,6 @@ public class RegisterAuthor {
 		if (df == null) {
 			df = new Dauthor();
 		}
-
-		df.i000(vo);
-		return 0;
-
+		return df.i000(vo);
 	}
 }

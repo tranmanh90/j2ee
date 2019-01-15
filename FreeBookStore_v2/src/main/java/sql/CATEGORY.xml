@@ -43,7 +43,7 @@
 			SET @IN_CATEGORY_NAME = ?;
 			INSERT INTO [CATEGORIES]
            		([CATEGORY_ID]
-           		,[CATEGORY_NAME]
+           		,[CATEGORY_NAME])
     		 VALUES
            		(@IN_CATEGORY_ID
           		 ,@IN_CATEGORY_NAME)

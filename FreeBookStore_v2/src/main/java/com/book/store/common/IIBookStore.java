@@ -30,5 +30,7 @@ public interface IIBookStore {
 	public int registerAuthor(Author00VO vo);
 	
 	public List<Category00VO> searchCategoryById(Category00VO vo);
+	
+	public int registerCategory(Category00VO vo);
 
 }

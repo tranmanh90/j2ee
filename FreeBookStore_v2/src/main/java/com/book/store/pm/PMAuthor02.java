@@ -40,9 +40,19 @@ public class PMAuthor02 implements IBasePM<Author02Request, Author02Response>{
 
 	private Author02Response registerAuthor(Author02Request request) {
 		Author00VO inVO = null;
+		Author02Response response = new Author02Response();
 		inVO = toVO(request);
+		
+		List<Author00VO> checkData = iibt.searchAuthorById(inVO);
+		
+		if(checkData != null && !checkData.isEmpty()) {
+			response.setRspCd("0001");
+			response.setRspMsg("The ID is already registed");
+			return response;
+		}
+		
 		int result = iibt.registerAuthor(inVO);
-		Author02Response response = toDTO(result);
+		response = toDTO(result);
 		return response;
 	}
 
@@ -56,6 +66,7 @@ public class PMAuthor02 implements IBasePM<Author02Request, Author02Response>{
 
 	private Author02Response toDTO(int result) {
 		Author02Response response = new Author02Response();
+		response.setRspCd("0000");
 		return response;
 	}
 
